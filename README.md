@@ -1,1 +1,1 @@
-# COMP-1050-Project-UML-Diagram
+# COMP-1050-Project
