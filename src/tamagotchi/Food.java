@@ -7,7 +7,7 @@ package tamagotchi;
  * 
  */
 public class Food {
-
+	String foodType = "Chicken";
 	/**
 	 * @param args
 	 */
