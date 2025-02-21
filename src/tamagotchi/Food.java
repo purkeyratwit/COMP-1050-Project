@@ -1,37 +1,55 @@
-/**
- * 
- */
 package tamagotchi;
 
 /**
+ * Class that represents a variety of food types that can be fed to a virtual pet
  * 
+ * @author Isla Purkey
  */
 public class Food {
-	String foodType = "Chicken";
-	int foodHungerDecrease = 0;
+	// Hard coded values for each food type
+	String[] foodType = { "Pet Food", "Organic Pet Food", "Medication", "Treat" };
+	String[] foodEffects = { "None", "None", "Healing", "BoredomDecrease" };
+	String[] flavorText = { "Standard pet food", "Pet food made without petsticides",
+			"Medicine to help with pet health", "A special treat for your pet" };
+	int[] foodHungerDecrease = { 10, 8, 0, 2 };
+
 	int foodStatus = 0;
 
-	public Food(){
+	/*
+	 * Default Constructor
+	 */
+	public Food() {
+		// TODO
+	}
 
+	/**
+	 * Provides the current valid food(s) list
+	 * 
+	 * @return The current food list
+	 */
+	public String[] getFoodList() {
+		// TODO
+		return new String[] { "" };
 	}
-	public String getFoodList(){
-		return null;
-	}
-	public int getHungerDecrease(String selectedFood){
-		return 0; 
-	}
-	public int getHungerIncrease(String selectedFood){
+
+	/**
+	 * Gets the current hunger reduction for the passed food
+	 * 
+	 * @param selectedFood The food to be evaluated
+	 * @return The hunger decrease of that food. Returns -1 if the food input is
+	 *         invalid
+	 */
+	public int getHungerDecrease(String selectedFood) {
+		// TODO
 		return 0;
 	}
-	public void selectFood(int selection){
 
-	}
 	/**
-	 * @param args
+	 * Selects a food that can be fed to the pet.
+	 * 
+	 * @param selection The index of the food that will be selected
 	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+	public void selectFood(int selection) {
+		// TODO
 	}
-
 }
