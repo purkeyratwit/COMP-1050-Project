@@ -12,7 +12,7 @@ public class Pet extends PetStats {
 	 * Default Constructor
 	 */
 	public Pet() {
-
+		this("N/A");
 	}
 
 	/**
@@ -22,7 +22,20 @@ public class Pet extends PetStats {
 	 * @param name The name that will be assigned to the pet
 	 */
 	public Pet(String name) {
-		// TODO
+		super();
+		this.name = name;
+	}
+
+	/**
+	 * Constructor, creates a pet object and names the pet according to the passed
+	 * in value. Additionally takes three integers which are assigned to the pet's
+	 * starting statistics
+	 * 
+	 * @param name The name that will be assigned to the pet
+	 */
+	public Pet(String name, int hunger, int boredom, int dirtiness) {
+		super(hunger, boredom, dirtiness);
+		this.name = name;
 	}
 
 	/**
@@ -31,8 +44,7 @@ public class Pet extends PetStats {
 	 * @return The name of the pet
 	 */
 	public String getName() {
-		// TODO
-		return "";
+		return name;
 	}
 
 	/**
@@ -41,7 +53,7 @@ public class Pet extends PetStats {
 	 * @param name The name that will be assigned to the pet
 	 */
 	public void setName(String name) {
-		// TODO?
+		this.name = name;
 	}
 
 	/**
