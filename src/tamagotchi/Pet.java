@@ -5,6 +5,8 @@ package tamagotchi;
  * 
  * @author Isla Purkey
  */
+
+import java.util.Random;
 public class Pet extends PetStats {
 	String name = "";
 
@@ -61,6 +63,20 @@ public class Pet extends PetStats {
 	 * over time as the player plays the game
 	 */
 	public void updateStats() {
-		// TODO
+		Random rand = new Random();
+		hunger -= rand.nextInt(10);
+		if (hunger < 0) {
+			hunger = 0;
+		}
+		boredom -= rand.nextInt(10);
+		if (boredom < 0) {
+			boredom = 0;
+		}
+		dirtiness -= rand.nextInt(10);
+		if (dirtiness < 0) {
+			dirtiness = 0;
+		}
+		
+		health = (hunger + boredom + dirtiness)/3;
 	}
 }

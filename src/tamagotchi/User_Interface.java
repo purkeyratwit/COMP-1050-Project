@@ -9,6 +9,8 @@ package tamagotchi;
 public class User_Interface {
 
 	public static String formattedString = "";
+	public static String petName;
+	public static final String OPTION_ERR_MSG = "Please enter a number in the valid range";
 
 	/**
 	 * Constructor, takes the current pet as input and creates a base for future
@@ -17,7 +19,7 @@ public class User_Interface {
 	 * @param pet The current pet
 	 */
 	public User_Interface(Pet pet) {
-		// TODO
+		petName = pet.getName();
 	}
 
 	/**
@@ -52,7 +54,8 @@ public class User_Interface {
 	 * 
 	 * @param stats true if the pet is healthy, false otherwise
 	 */
-	public static void updateScreen(Pet pet) {
+	public void updateScreen(Pet pet) {
+		clearScreen();
 		if (pet.getHealth() >= 10) {
 			System.out.printf("%s's current stats:%n", pet.getName());
 			// Prints the pets current statistics
@@ -63,20 +66,22 @@ public class User_Interface {
 			
 			System.out.printf("%n");
 			System.out.printf("Enter \"1\" to return to the main menu!%n");
-			System.out.printf("%n%n%n"); // Temporary
 		} else {
 			formattedString = "Your pet has passed away! Would you like to try again?";
 			System.out.printf("%s", formattedString);
 
-			printOptions(new String[] { "1. Yes", "2. No" });
+			printOptions(new String[] { "Yes", "No" });
 		}
 	}
 
 	/**
 	 * Updates the current console output to represent the main menu
 	 */
-	public static void updateScreen() {
-		// TODO
+	public void updateScreen() {
+		clearScreen();
+		System.out.printf("Main menu for %s: %nPlease select an option!", petName);
+		
+		printOptions(new String[] {"Feed your pet", "Bathe your pet", "Play with your pet", "Check how your pet is doing", "Exit the game"});
 	}
 
 	/**
@@ -94,25 +99,12 @@ public class User_Interface {
 	 * @param optionsList Array of available options
 	 */
 	public static void printOptions(String[] optionsList) {
-		// TODO
-	}
-
-	/**
-	 * !!!TEMPORARY!!!
-	 * 
-	 * This method is used for testing different User_Interface methods until a
-	 * proper input handling method is developed
-	 * 
-	 * @param args Command line arguments, ignore
-	 */
-	public static void main(String args[]) {
-		Pet test1 = new Pet("Dummy", 50, 40, 20);
-		updateScreen(test1);
-
-		Pet test2 = new Pet("Even more dummy");
-		updateScreen(test2);
-		
-		Pet test3 = new Pet();
-		updateScreen(test3);
+		if(optionsList.length > 0) {
+			System.out.println();
+			System.out.println();
+		}
+		for (int i = 0; i < optionsList.length; i++) {
+			System.out.printf("%d. %s%n", i+1, optionsList[i]);
+		}
 	}
 }
