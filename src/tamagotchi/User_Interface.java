@@ -28,7 +28,10 @@ public class User_Interface {
 	 * @param foodInput The current state of the food class
 	 */
 	public void updateScreen(Food foodInput) {
-		// TODO
+		if (foodInput.foodStatus == 1) {
+			System.out.printf("Select a food to feed %s", petName);
+			printOptions(foodInput.getFoodList());
+		}
 	}
 
 	/**

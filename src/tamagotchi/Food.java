@@ -14,12 +14,13 @@ public class Food {
 	int[] foodHungerDecrease = { 10, 8, 0, 2 };
 
 	int foodStatus = 0;
+	int selectedFood = 0;
 
 	/*
 	 * Default Constructor
 	 */
 	public Food() {
-		// TODO
+		selectedFood = 0;
 	}
 
 	/**
@@ -28,8 +29,7 @@ public class Food {
 	 * @return The current food list
 	 */
 	public String[] getFoodList() {
-		// TODO
-		return new String[] { "" };
+		return foodType;
 	}
 
 	/**

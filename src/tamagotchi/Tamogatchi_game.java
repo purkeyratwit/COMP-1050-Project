@@ -69,6 +69,22 @@ public class Tamogatchi_game {
 			}
 		}
 	}
+	
+	public static int getChoice(Scanner input, int max) {
+		while (true)
+			try {
+				int userResponse = input.nextInt();
+				if (userResponse > max) {
+					System.out.printf("%s: ", User_Interface.OPTION_ERR_MSG);
+				} else if (userResponse < 1) {
+					System.out.printf("%s: ", User_Interface.OPTION_ERR_MSG);
+				} else {
+					return userResponse;
+				}
+			} catch (NumberFormatException ex) {
+				System.out.printf("%s: ", User_Interface.OPTION_ERR_MSG);
+			}
+	}
 
 	/**
 	 * Main method
@@ -81,18 +97,33 @@ public class Tamogatchi_game {
 		Food food = new Food();
 		Dirtiness dirty = new Dirtiness();
 		Boredom bored = new Boredom();
+		int userResponse;
 
 		Pet pet = createPet(input);
 
 		ui = new User_Interface(pet);
 
-		// Should be put at the start of a while (true) loop once more is worked on
-		ui.updateScreen();
-		
-		// TODO
-		// Needs to handle actions taking place after the user makes a choice (eg
-		// feeding the pet). Ideally shouldn't handle printing much (if anything) as
-		// that should be done via the User_Interface class, but if necessary small things can be printed.
+		while (true) {
+			ui.updateScreen();
+			userResponse = getChoice(input, 5);
+			if (userResponse == 1) {
+				food.foodStatus = 1;
+				ui.updateScreen(food);
+				userResponse = getChoice(input, 4);
+				// Handle getting user response
+			} else if (userResponse == 2) {
+				// TODO bathing the pet
+				System.out.printf("2");
+			} else if (userResponse == 3) {
+				// TODO games
+				System.out.printf("3");
+			} else if (userResponse == 4) {
+				// TODO Checking pet stats
+				System.out.printf("4");
+			} else if (userResponse == 5) {
+				System.exit(0);
+			}
+		}
 	}
 
 }
