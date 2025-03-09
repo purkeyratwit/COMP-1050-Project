@@ -19,9 +19,9 @@ public class Tamogatchi_game {
 	 */
 	public static Pet createPet(Scanner input) {
 		System.out.printf("Hello! Please name your pet: ");
-		String petName = input.next();
+		String petName = input.nextLine();
 
-		System.out.printf("Would you like to setup any initial starting conditions?");
+		System.out.printf("%nWould you like to setup any initial starting conditions?");
 		User_Interface.printOptions(new String[] { "Yes", "No" });
 
 		while (true) {
@@ -35,7 +35,7 @@ public class Tamogatchi_game {
 						// Handles if the provided values aren't numbers
 						try {
 							System.out.printf(
-									"Enter values for the pets food, boredom, and dirtiness statistic (0-100): ");
+									"%nEnter values for the pets food, boredom, and dirtiness statistic (0-100): ");
 							int[] values = new int[3];
 							for (int i = 0; i < 3; i++) {
 								int currentInput = input.nextInt();
@@ -70,6 +70,13 @@ public class Tamogatchi_game {
 		}
 	}
 
+	/**
+	 * Simple method to get a numeric choice from the user
+	 * 
+	 * @param input Scanner which contains user input
+	 * @param max   Highest number option choice
+	 * @return The user provided number
+	 */
 	public static int getChoice(Scanner input, int max) {
 		while (true)
 			try {
@@ -107,6 +114,7 @@ public class Tamogatchi_game {
 		while (true) {
 			ui.updateScreen();
 			userResponse = getChoice(input, 5);
+			ui.clearScreen();
 			if (userResponse == 1) {
 				food.foodStatus = 1;
 				ui.updateScreen(food);
@@ -114,7 +122,7 @@ public class Tamogatchi_game {
 				ui.confirm();
 				userResponse = getChoice(input, 2);
 				if (userResponse == 1) {
-					food.selectFood(userFoodIndex-1);
+					food.selectFood(userFoodIndex - 1);
 					pet.setHunger(pet.getHunger() + food.getHungerDecrease(food.selectedFood));
 				}
 			} else if (userResponse == 2) {

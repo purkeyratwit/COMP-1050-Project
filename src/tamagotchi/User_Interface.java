@@ -30,8 +30,17 @@ public class User_Interface {
 	public void updateScreen(Food foodInput) {
 		System.out.printf("%n");
 		if (foodInput.foodStatus == 1) {
+			String[] foodList = foodInput.getFoodList();
+			String[] foodFlavorText = foodInput.flavorText;
+
 			System.out.printf("Select a food to feed %s", petName);
-			printOptions(foodInput.getFoodList());
+
+			// Prints options with flavor text
+			System.out.println();
+			System.out.println();
+			for (int i = 0; i < foodList.length; i++) {
+				System.out.printf("%d. %s: %s%n", i + 1, foodList[i], foodFlavorText[i]);
+			}
 		}
 	}
 
@@ -68,7 +77,7 @@ public class User_Interface {
 			System.out.printf("Boredom: %d%n", pet.getBoredom());
 			System.out.printf("Dirtiness: %d%n", pet.getDirtiness());
 			System.out.printf("Health: %.0f%n", pet.getHealth());
-			
+
 			System.out.printf("%n");
 			System.out.printf("Enter \"1\" to return to the main menu!%n");
 		} else {
@@ -85,8 +94,9 @@ public class User_Interface {
 	public void updateScreen() {
 		clearScreen();
 		System.out.printf("Main menu for %s: %nPlease select an option!", petName);
-		
-		printOptions(new String[] {"Feed your pet", "Bathe your pet", "Play with your pet", "Check how your pet is doing", "Exit the game"});
+
+		printOptions(new String[] { "Feed your pet", "Bathe your pet", "Play with your pet",
+				"Check how your pet is doing", "Exit the game" });
 	}
 
 	/**
@@ -104,17 +114,17 @@ public class User_Interface {
 	 * @param optionsList Array of available options
 	 */
 	public static void printOptions(String[] optionsList) {
-		if(optionsList.length > 0) {
+		if (optionsList.length > 0) {
 			System.out.println();
 			System.out.println();
 		}
 		for (int i = 0; i < optionsList.length; i++) {
-			System.out.printf("%d. %s%n", i+1, optionsList[i]);
+			System.out.printf("%d. %s%n", i + 1, optionsList[i]);
 		}
 	}
-	
+
 	public void confirm() {
 		System.out.printf("%nAre you sure?");
-		printOptions(new String[] {"Yes", "No"});
+		printOptions(new String[] { "Yes", "No" });
 	}
 }

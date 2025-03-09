@@ -32,7 +32,7 @@ public class PetStats {
 		this.boredom = boredom;
 		this.dirtiness = dirtiness;
 
-		// Sets the default health value to the average of the three arguments 
+		// Sets the default health value to the average of the three arguments
 		this.health = (hunger + boredom + dirtiness) / 3.0;
 	}
 
@@ -78,21 +78,21 @@ public class PetStats {
 	public void setHunger(int hunger) {
 		this.hunger = hunger;
 	}
-	
+
 	/**
 	 * Sets the boredom value to the value the user provides
 	 */
 	public void setBoredom(int boredom) {
 		this.boredom = boredom;
 	}
-	
+
 	/**
 	 * Sets the dirtiness value to the value the user provides
 	 */
 	public void setDirtiness(int dirtiness) {
 		this.dirtiness = dirtiness;
 	}
-	
+
 	/**
 	 * Sets the health value to the value the user provides
 	 */

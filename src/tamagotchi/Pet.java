@@ -7,6 +7,7 @@ package tamagotchi;
  */
 
 import java.util.Random;
+
 public class Pet extends PetStats {
 	String name = "";
 
@@ -76,7 +77,7 @@ public class Pet extends PetStats {
 		if (dirtiness < 0) {
 			dirtiness = 0;
 		}
-		
-		health = (hunger + boredom + dirtiness)/3;
+
+		health = (hunger + boredom + dirtiness) / 3;
 	}
 }

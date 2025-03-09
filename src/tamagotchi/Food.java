@@ -8,9 +8,10 @@ package tamagotchi;
  */
 public class Food {
 	// Hard coded values for each food type
-	String[] foodType = { "Pet Food", "Organic Pet Food", "Treat" };
-	String[] flavorText = { "Standard pet food", "Pet food made without petsticides", "A special treat for your pet" };
-	int[] foodHungerDecrease = { 10, 9, 5 };
+	String[] foodType = { "Pet Food", "Organic Pet Food", "Treat", "Chocolate" };
+	String[] flavorText = { "Standard pet food", "Pet food made without petsticides", "A special treat for your pet",
+			"Unhealthy chocolate for your pet" };
+	int[] foodHungerDecrease = { 10, 9, 5, -10 };
 	int foodCount = foodType.length;
 	int foodStatus = 0;
 	int selectedFood = 0;
