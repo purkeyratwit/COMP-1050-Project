@@ -28,6 +28,7 @@ public class User_Interface {
 	 * @param foodInput The current state of the food class
 	 */
 	public void updateScreen(Food foodInput) {
+		System.out.printf("%n");
 		if (foodInput.foodStatus == 1) {
 			System.out.printf("Select a food to feed %s", petName);
 			printOptions(foodInput.getFoodList());
@@ -59,6 +60,7 @@ public class User_Interface {
 	 */
 	public void updateScreen(Pet pet) {
 		clearScreen();
+		pet.updateStats();
 		if (pet.getHealth() >= 10) {
 			System.out.printf("%s's current stats:%n", pet.getName());
 			// Prints the pets current statistics
@@ -70,7 +72,7 @@ public class User_Interface {
 			System.out.printf("%n");
 			System.out.printf("Enter \"1\" to return to the main menu!%n");
 		} else {
-			formattedString = "Your pet has passed away! Would you like to try again?";
+			formattedString = "Your pet has passed away! Would you like to try again? Your pet will be reset to how it was on creation.";
 			System.out.printf("%s", formattedString);
 
 			printOptions(new String[] { "Yes", "No" });
@@ -90,7 +92,7 @@ public class User_Interface {
 	/**
 	 * Clears the console output to allow for new text to be printed
 	 */
-	public static void clearScreen() {
+	public void clearScreen() {
 		for (int i = 0; i < 30; i++) {
 			System.out.printf("%n");
 		}
@@ -109,5 +111,10 @@ public class User_Interface {
 		for (int i = 0; i < optionsList.length; i++) {
 			System.out.printf("%d. %s%n", i+1, optionsList[i]);
 		}
+	}
+	
+	public void confirm() {
+		System.out.printf("%nAre you sure?");
+		printOptions(new String[] {"Yes", "No"});
 	}
 }

@@ -69,7 +69,7 @@ public class Tamogatchi_game {
 			}
 		}
 	}
-	
+
 	public static int getChoice(Scanner input, int max) {
 		while (true)
 			try {
@@ -97,9 +97,10 @@ public class Tamogatchi_game {
 		Food food = new Food();
 		Dirtiness dirty = new Dirtiness();
 		Boredom bored = new Boredom();
-		int userResponse;
+		int userResponse, userFoodIndex;
 
 		Pet pet = createPet(input);
+		Pet defaultPet = pet;
 
 		ui = new User_Interface(pet);
 
@@ -109,8 +110,13 @@ public class Tamogatchi_game {
 			if (userResponse == 1) {
 				food.foodStatus = 1;
 				ui.updateScreen(food);
-				userResponse = getChoice(input, 4);
-				// Handle getting user response
+				userFoodIndex = getChoice(input, food.foodCount);
+				ui.confirm();
+				userResponse = getChoice(input, 2);
+				if (userResponse == 1) {
+					food.selectFood(userFoodIndex-1);
+					pet.setHunger(pet.getHunger() + food.getHungerDecrease(food.selectedFood));
+				}
 			} else if (userResponse == 2) {
 				// TODO bathing the pet
 				System.out.printf("2");
@@ -118,8 +124,17 @@ public class Tamogatchi_game {
 				// TODO games
 				System.out.printf("3");
 			} else if (userResponse == 4) {
-				// TODO Checking pet stats
-				System.out.printf("4");
+				ui.updateScreen(pet);
+				if (pet.getHealth() >= 10) {
+					getChoice(input, 1);
+				} else {
+					getChoice(input, 2);
+					if (userResponse == 1) {
+						pet = defaultPet;
+					} else {
+						System.exit(0);
+					}
+				}
 			} else if (userResponse == 5) {
 				System.exit(0);
 			}

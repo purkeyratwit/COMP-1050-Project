@@ -64,15 +64,15 @@ public class Pet extends PetStats {
 	 */
 	public void updateStats() {
 		Random rand = new Random();
-		hunger -= rand.nextInt(10);
+		hunger -= rand.nextInt(5);
 		if (hunger < 0) {
 			hunger = 0;
 		}
-		boredom -= rand.nextInt(10);
+		boredom -= rand.nextInt(5);
 		if (boredom < 0) {
 			boredom = 0;
 		}
-		dirtiness -= rand.nextInt(10);
+		dirtiness -= rand.nextInt(5);
 		if (dirtiness < 0) {
 			dirtiness = 0;
 		}
