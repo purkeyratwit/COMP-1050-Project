@@ -136,8 +136,9 @@ public class Tamogatchi_game {
 				if (pet.getHealth() >= 10) {
 					getChoice(input, 1);
 				} else {
-					getChoice(input, 2);
+					userResponse = getChoice(input, 2);
 					if (userResponse == 1) {
+						// TODO Don't use this method, set values manually 
 						pet = defaultPet;
 					} else {
 						System.exit(0);
