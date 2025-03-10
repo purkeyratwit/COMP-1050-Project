@@ -1,22 +1,11 @@
 package tamagotchi;
 
-/**
- * Class to handle user input and that includes a main method
- * 
- * @author Isla Purkey
- */
-
 import java.util.Scanner;
 import java.lang.NumberFormatException;
 import java.util.InputMismatchException;
 
 public class Tamogatchi_game {
 
-	/**
-	 * Simple method to handle creating a Pet object upon the program's startup
-	 * 
-	 * @return Pet object created
-	 */
 	public static Pet createPet(Scanner input) {
 		System.out.printf("Hello! Please name your pet: ");
 		String petName = input.nextLine();
@@ -70,13 +59,6 @@ public class Tamogatchi_game {
 		}
 	}
 
-	/**
-	 * Simple method to get a numeric choice from the user
-	 * 
-	 * @param input Scanner which contains user input
-	 * @param max   Highest number option choice
-	 * @return The user provided number
-	 */
 	public static int getChoice(Scanner input, int max) {
 		while (true)
 			try {
@@ -93,11 +75,6 @@ public class Tamogatchi_game {
 			}
 	}
 
-	/**
-	 * Main method
-	 * 
-	 * @param args Command line arguments, ignore
-	 */
 	public static void main(String[] args) {
 		Scanner input = new Scanner(System.in);
 		User_Interface ui;
