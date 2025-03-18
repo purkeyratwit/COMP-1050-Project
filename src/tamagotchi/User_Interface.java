@@ -62,28 +62,28 @@ public class User_Interface {
 	public void updateScreen(Trivia_Game TriviaInput) {
 		// TODO
 	}
-	
+
 	/**
 	 * Updates the current console output to represent the current Tic_Tac_Toe class
 	 * 
 	 * @param boredomInput The current state of the boredom class
 	 */
 	public void updateScreen(Tic_Tac_Toe_Game tttInput) {
-		if(tttInput.gameStatus == 1) {
+		if (tttInput.gameStatus == 1) {
 			System.out.printf("Enter a X coordnate from the valid list: ");
 			tttInput.gameStatus++;
-		} else if(tttInput.gameStatus == 2) {
+		} else if (tttInput.gameStatus == 2) {
 			System.out.printf("Enter a Y coordnate from the valid list: ");
 			tttInput.gameStatus++;
-		} else if(tttInput.gameStatus == 3) {
+		} else if (tttInput.gameStatus == 3) {
 			System.out.printf("  1 2 3%n");
 			System.out.printf(" ┌─┬─┬─┐%n");
 			for (int i = 0; i < 3; i++) {
-				System.out.printf("%d│", i+1);
+				System.out.printf("%d│", i + 1);
 				for (int j = 0; j < 3; j++) {
 					System.out.printf("%s│", tttInput.gameBoard[i][j]);
 				}
-				if(i != 2) {
+				if (i != 2) {
 					System.out.printf("%n ├─┼─┼─┤%n");
 				} else {
 					System.out.printf("%n └─┴─┴─┘%n");
@@ -91,6 +91,15 @@ public class User_Interface {
 			}
 
 			tttInput.gameStatus = 1;
+		} else if (tttInput.gameStatus == 4) {
+			System.out.printf("%nYou won!%nWhat would you like to do now?");
+			printOptions(new String[] {"Start a new game", "Return to the main menu"});
+		} else if (tttInput.gameStatus == 5) {
+			System.out.printf("%n%s won!%nWhat would you like to do now?", petName);
+			printOptions(new String[] {"Start a new game", "Return to the main menu"});
+		} else if (tttInput.gameStatus == 6) {
+			System.out.printf("%nNo winner!%nWhat would you like to do now?", petName);
+			printOptions(new String[] {"Start a new game", "Return to the main menu"});
 		}
 	}
 

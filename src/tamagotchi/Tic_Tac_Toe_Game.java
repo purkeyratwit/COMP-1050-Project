@@ -14,7 +14,7 @@ public class Tic_Tac_Toe_Game {
 	String[][] gameBoard = new String[3][3];
 	boolean usersChoice = true;
 	int gameStatus = 0; // -1 = No game running, 0 = New game, 1 = Waiting for x input, 2 = Waiting for
-						// y input, 3 = Pet making a choice, 4 = Game ended
+						// y input, 3 = Pet made a choice, 4 = Player won, 5 = Pet won, 6 = No winner, 7 = Game ended
 	Random petChoice = new Random();
 
 	/**
@@ -55,8 +55,35 @@ public class Tic_Tac_Toe_Game {
 	 * @return Returns if the user, pet, or nobody has won
 	 */
 	public String checkWinner() {
-		// TODO
-		return "";
+		
+		// int[y][x]
+		// Checks horizontal win conditions
+		for(int i = 0; i < 3; i++) {
+			if((gameBoard[i][0].equals(gameBoard[i][1])) && (gameBoard[i][0].equals(gameBoard[i][2]))) {
+				if(gameBoard[i][0].equals("X") || gameBoard[i][0].equals("O")) {
+					return gameBoard[i][0];
+				}
+			}
+		}
+		
+		// Checks vertical win conditions
+		for(int i = 0; i < 3; i++) {
+			if(gameBoard[0][i].equals(gameBoard[1][i]) && gameBoard[0][i].equals(gameBoard[2][i])) {
+				if(gameBoard[0][i].equals("X") || gameBoard[0][i].equals("O")) {
+					return gameBoard[0][i];
+				}
+			}
+		}
+		
+		// Checks diagonal win conditions
+		if(gameBoard[0][0].equals(gameBoard[1][1]) && gameBoard[0][0].equals(gameBoard[2][2])) {
+			// Leading Diagonal
+			return gameBoard[1][1];
+		} else if (gameBoard[0][2].equals(gameBoard[1][1]) && gameBoard[0][2].equals(gameBoard[2][0])) { 		// Counter Diagonal
+			// Counter Diagonal
+			return gameBoard[1][1];
+		}	
+		return "-";
 	}
 
 	/**

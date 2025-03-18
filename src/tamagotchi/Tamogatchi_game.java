@@ -96,6 +96,148 @@ public class Tamogatchi_game {
 			}
 	}
 
+	// TODO Needs to return the appropriate boredom increase value, also needs to be
+	// cleaned up a little, specifically I think the code would be more manageable
+	// if User_Interface doesn't change tttGame.gameStatus. Other changes needed,
+	// however the game is mostly completed I believe
+	public static int TTTGame(User_Interface ui, Scanner input) {
+		int userResponse = 1;
+		while (true) {
+			ui.clearScreen();
+			Tic_Tac_Toe_Game tttGame = new Tic_Tac_Toe_Game();
+
+			System.out.printf(
+					"Pick a starting position on the board!%n(1,1) Represents the top left corner and (3,3) represents the bottom right corner");
+			User_Interface.printOptions(new String[] { "X options: 1, 2, 3", "Y options: 1, 2, 3" });
+
+			tttGame.gameStatus = 1;
+			for (int i = 0; i < 4; i++) {
+				// Gets user position choice
+				int x, y;
+				do {
+					ui.updateScreen(tttGame);
+					x = getChoice(input, 3);
+					ui.updateScreen(tttGame);
+					y = getChoice(input, 3);
+
+					if (!tttGame.validOption(x, y)) {
+						System.out.printf("%nPlease enter a set of valid coordnates!%n");
+						tttGame.gameStatus = 1;
+					}
+
+				} while (!tttGame.validOption(x, y));
+
+				tttGame.gameBoard[y - 1][x - 1] = "X";
+
+				// If X wins
+				if (tttGame.checkWinner().equals("X")) {
+
+					// Prints the game board
+					ui.clearScreen();
+					ui.updateScreen(tttGame);
+
+					tttGame.gameStatus = 4;
+
+					ui.updateScreen(tttGame);
+					userResponse = getChoice(input, 2);
+
+					tttGame.gameStatus = 7;
+
+					if (userResponse == 1) {
+						tttGame.resetGame();
+						break;
+					} else {
+						break;
+					}
+				}
+
+				int[] petChoice = tttGame.petChoice(tttGame.gameBoard);
+				tttGame.gameBoard[petChoice[0]][petChoice[1]] = "O";
+
+				// Prints the game board
+				ui.clearScreen();
+				tttGame.gameStatus = 3;
+				ui.updateScreen(tttGame);
+
+				// If O wins
+				if (tttGame.checkWinner().equals("O")) {
+					// Prints the game board
+					ui.clearScreen();
+					tttGame.gameStatus = 3;
+					ui.updateScreen(tttGame);
+
+					tttGame.gameStatus = 5;
+
+					ui.updateScreen(tttGame);
+					userResponse = getChoice(input, 2);
+
+					tttGame.gameStatus = 7;
+
+					if (userResponse == 1) {
+						tttGame.resetGame();
+						break;
+					} else {
+						break;
+					}
+				}
+			}
+
+			// If game ended, check if the user wishes to exit
+			if (tttGame.gameStatus == 7) {
+				if (userResponse == 1) {
+					tttGame.resetGame();
+				} else {
+					break;
+				}
+			} else {
+				// Final move, automatic
+				int x, y;
+				char value = tttGame.getValidOptions()[0].charAt(0);
+				x = Character.valueOf(value) - 48;
+
+				value = tttGame.getValidOptions()[0].charAt(3);
+				y = Character.valueOf(value) - 48;
+
+				tttGame.gameBoard[y - 1][x - 1] = "X";
+
+				if (tttGame.checkWinner().equals("X")) {
+					// Prints the game board
+					ui.clearScreen();
+					tttGame.gameStatus = 3;
+					ui.updateScreen(tttGame);
+
+					tttGame.gameStatus = 4;
+
+					ui.updateScreen(tttGame);
+					userResponse = getChoice(input, 2);
+				} else {
+					// Prints the game board
+					ui.clearScreen();
+					tttGame.gameStatus = 3;
+					ui.updateScreen(tttGame);
+
+					tttGame.gameStatus = 6;
+
+					ui.updateScreen(tttGame);
+					userResponse = getChoice(input, 2);
+				}
+				if (userResponse == 1) {
+					tttGame.resetGame();
+				} else {
+					break;
+				}
+			}
+			// TODO At this point, 8/9 spots on the board have been filled, so the last one
+			// needs to be filled in with the player's symbol (X) and the potential winner
+			// needs to be determined
+
+			// TODO Afterwards pet stats need to be incremented
+
+		}
+		// Temp
+		return 0;
+	}
+
 	/**
 	 * Main method
 	 * 
@@ -141,6 +283,7 @@ public class Tamogatchi_game {
 				System.out.printf("What would you like to do? ");
 				User_Interface.printOptions(bored.gameMenuOptions);
 				userResponse = getChoice(input, 3);
+
 				if (userResponse == 1) {
 					/*
 					 * Tic Tac Toe Game Option
@@ -148,55 +291,9 @@ public class Tamogatchi_game {
 					bored.setGame(1);
 					bored.startGame();
 					while (bored.gameOngoing) {
-						ui.clearScreen();
-						Tic_Tac_Toe_Game tttGame = new Tic_Tac_Toe_Game();
-
-						System.out.printf(
-								"Pick a starting position on the board!%n(1,1) Represents the top left corner and (3,3) represents the bottom right corner");
-						User_Interface.printOptions(new String[] { "X options: 1, 2, 3", "Y options: 1, 2, 3" });
-
-						tttGame.gameStatus = 1;
-						for (int i = 0; i < 4; i++) { // TODO modify this loop so the game can be terminated early if a
-														// winner is found before 8 turns have been played. use
-														// gameOngoing or gameStatus to do that probably
-							// Gets user position choice
-							int x, y;
-							do {
-								ui.updateScreen(tttGame);
-								x = getChoice(input, 3);
-								ui.updateScreen(tttGame);
-								y = getChoice(input, 3);
-
-								if (!tttGame.validOption(x, y)) {
-									System.out.printf("%nPlease enter a set of valid coordnates!%n");
-									tttGame.gameStatus = 1;
-								}
-
-							} while (!tttGame.validOption(x, y));
-
-							tttGame.gameBoard[y - 1][x - 1] = "X";
-
-							// TODO Check for a winner using tttGame.checkWinner(); If there is a winner
-							// print the game board and some flavor text.
-
-							int[] petChoice = tttGame.petChoice(tttGame.gameBoard);
-							tttGame.gameBoard[petChoice[0]][petChoice[1]] = "O";
-
-							// TODO Check for a winner using tttGame.checkWinner(); If there is a winner
-							// print the game board and some flavor text.
-
-							// Prints game board
-							ui.clearScreen();
-							ui.updateScreen(tttGame);
-						}
-
-						// TODO At this point, 8/9 spots on the board have been filled, so the last one
-						// needs to be filled in with the player's symbol (X) and the potential winner
-						// needs to be determined
-
-						// TODO Afterwards pet stats need to be incremented
-
+						TTTGame(ui, input);
 					}
+
 				} else if (userResponse == 2) {
 					/*
 					 * Trivia game handling
