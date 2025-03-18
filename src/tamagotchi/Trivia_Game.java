@@ -4,7 +4,7 @@ package tamagotchi;
  * Class that represents a trivia game that is designed to be played by a
  * virtual pet
  * 
- * @author Isla Purkey
+ * @authors Isla Purkey; Jade Horne
  */
 public class Trivia_Game {
 	
@@ -68,7 +68,9 @@ public class Trivia_Game {
 	 * Resets the game back to it's initial state
 	 */
 	public void resetGame() {
-		// TODO
+		gamesPlayed = 0;
+		gameStatus = 0; 
+		questionCount = 0;
 	}
 
 }
