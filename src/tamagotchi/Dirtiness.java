@@ -4,20 +4,20 @@ package tamagotchi;
  * Class to manage the activities that can influence the dirtiness value of a
  * virtual pet
  * 
- * @author Isla Purkey
+ * @authors Isla Purkey
  */
 public class Dirtiness {
 	// Hard coded values for each cleaning method
 	String[] cleaningType = { "Quick Rinse", "Deep Clean" };
 	int[] cleaningDirtinessDecrease = { 5, 20 };
-
 	int cleaningStatus = 0;
 
 	/**
 	 * Default constructor
 	 */
 	public Dirtiness() {
-		// TODO
+		cleaningStatus = 0; 
+		
 	}
 
 	/**
@@ -26,8 +26,7 @@ public class Dirtiness {
 	 * @return
 	 */
 	public String[] getCleaningOptions() {
-		// TODO
-		return new String[] { "" };
+		return cleaningType;
 	}
 
 	/**
@@ -37,7 +36,12 @@ public class Dirtiness {
 	 * @return The dirtiness statistic decrease of the provided cleaning method
 	 */
 	public int getDirtinessDecrease(String selectedClean) {
-		// TODO
+		
+		if (selectedClean == "Quick Rinse"){
+			return cleaningDirtinessDecrease[0];
+		} if (selectedClean == "Deep Clean") {
+			return cleaningDirtinessDecrease[1];
+		}
 		return 0;
 	}
 
@@ -48,6 +52,11 @@ public class Dirtiness {
 	 *                  Rinse")
 	 */
 	public void selectCleaningMethod(int selection) {
-		// TODO
+		if (selection == 0) {
+			
+			
+		} if (selection == 1) {
+			
+		}
 	}
 }

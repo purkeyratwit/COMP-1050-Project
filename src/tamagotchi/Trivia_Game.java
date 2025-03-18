@@ -4,7 +4,7 @@ package tamagotchi;
  * Class that represents a trivia game that is designed to be played by a
  * virtual pet
  * 
- * @authors Isla Purkey; Jade Horne
+ * @authors Isla Purkey
  */
 public class Trivia_Game {
 	

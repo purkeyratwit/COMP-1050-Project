@@ -4,7 +4,7 @@ package tamagotchi;
  * Class that represents a variety of food types that can be fed to a virtual
  * pet
  * 
- * @authors Isla Purkey; Jade Horne
+ * @authors Isla Purkey
  */
 public class Food {
 	// Hard coded values for each food type
