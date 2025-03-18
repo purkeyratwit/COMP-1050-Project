@@ -7,14 +7,16 @@ package tamagotchi;
  * @author Isla Purkey
  */
 public class Boredom {
-	int gameSelected = 1;
+	int gameSelected = 0; // 0 = No game, 1 = Tic Tac Toe, 2 = Trivia
 	boolean gameOngoing = false;
+	String[] gameMenuOptions = new String[] { "Play Tic Tac Toe", "Play a Trivia Game", "Return to the Main Menu" };
 
 	/**
 	 * Default constructor
 	 */
 	public Boredom() {
-		// TODO
+		gameSelected = 0;
+		gameOngoing = false;
 	}
 
 	/**
@@ -24,8 +26,12 @@ public class Boredom {
 	 * @param selectedActivity The current activity/game the user has selected
 	 * @return The amount the boredom statistic will decrease
 	 */
-	public int getBoredomDecrease(String selectedActivity) {
-		// TODO
+	public int getBoredomDecrease(int selectedActivity) {
+		if (selectedActivity == 1) {
+			return 20;
+		} else if (selectedActivity == 2) {
+			return 30;
+		}
 		return 0;
 	}
 
@@ -35,8 +41,12 @@ public class Boredom {
 	 * @return The current game being played
 	 */
 	public String getGame() {
-		// TODO
-		return "";
+		if (gameSelected == 1) {
+			return "Tic Tac Toe";
+		} else if (gameSelected == 2) {
+			return "Trivia";
+		}
+		return "No game";
 	}
 
 	/**
@@ -44,21 +54,23 @@ public class Boredom {
 	 * 
 	 * @param game The game to be set
 	 */
-	public void setGame(String game) {
-		// TODO
+	public void setGame(int game) {
+		if (!gameOngoing) {
+			gameSelected = game;
+		}
 	}
 
 	/**
 	 * Starts the currently set game
 	 */
 	public void startGame() {
-
+		gameOngoing = true;
 	}
 
 	/**
 	 * Ends the currently ongoing game
 	 */
 	public void endGame() {
-
+		gameOngoing = false;
 	}
 }

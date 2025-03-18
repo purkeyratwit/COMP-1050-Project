@@ -51,7 +51,7 @@ public class Tamogatchi_game {
 
 							return new Pet(petName, values[0], values[1], values[2]);
 						} catch (InputMismatchException ex) {
-							System.out.printf("Non-integer value(s) provided!%n");
+							System.out.printf("%s: ", User_Interface.FORMAT_ERR_MSG);
 							// Resets scanner tokens
 							input.skip(".*");
 						}
@@ -90,6 +90,9 @@ public class Tamogatchi_game {
 				}
 			} catch (NumberFormatException ex) {
 				System.out.printf("%s: ", User_Interface.OPTION_ERR_MSG);
+			} catch (InputMismatchException ex) {
+				input.nextLine(); // Clears the invalid token
+				System.out.printf("%s: ", User_Interface.FORMAT_ERR_MSG);
 			}
 	}
 
@@ -116,6 +119,9 @@ public class Tamogatchi_game {
 			userResponse = getChoice(input, 5);
 			ui.clearScreen();
 			if (userResponse == 1) {
+				/*
+				 * Food option
+				 */
 				food.foodStatus = 1;
 				ui.updateScreen(food);
 				userFoodIndex = getChoice(input, food.foodCount);
@@ -129,22 +135,94 @@ public class Tamogatchi_game {
 				// TODO bathing the pet
 				System.out.printf("2");
 			} else if (userResponse == 3) {
-				// TODO games
-				System.out.printf("3");
+				/*
+				 * Game option
+				 */
+				System.out.printf("What would you like to do? ");
+				User_Interface.printOptions(bored.gameMenuOptions);
+				userResponse = getChoice(input, 3);
+				if (userResponse == 1) {
+					/*
+					 * Tic Tac Toe Game Option
+					 */
+					bored.setGame(1);
+					bored.startGame();
+					while (bored.gameOngoing) {
+						ui.clearScreen();
+						Tic_Tac_Toe_Game tttGame = new Tic_Tac_Toe_Game();
+
+						System.out.printf(
+								"Pick a starting position on the board!%n(1,1) Represents the top left corner and (3,3) represents the bottom right corner");
+						User_Interface.printOptions(new String[] { "X options: 1, 2, 3", "Y options: 1, 2, 3" });
+
+						tttGame.gameStatus = 1;
+						for (int i = 0; i < 4; i++) { // TODO modify this loop so the game can be terminated early if a
+														// winner is found before 8 turns have been played. use
+														// gameOngoing or gameStatus to do that probably
+							// Gets user position choice
+							int x, y;
+							do {
+								ui.updateScreen(tttGame);
+								x = getChoice(input, 3);
+								ui.updateScreen(tttGame);
+								y = getChoice(input, 3);
+
+								if (!tttGame.validOption(x, y)) {
+									System.out.printf("%nPlease enter a set of valid coordnates!%n");
+									tttGame.gameStatus = 1;
+								}
+
+							} while (!tttGame.validOption(x, y));
+
+							tttGame.gameBoard[y - 1][x - 1] = "X";
+
+							// TODO Check for a winner using tttGame.checkWinner(); If there is a winner
+							// print the game board and some flavor text.
+
+							int[] petChoice = tttGame.petChoice(tttGame.gameBoard);
+							tttGame.gameBoard[petChoice[0]][petChoice[1]] = "O";
+
+							// TODO Check for a winner using tttGame.checkWinner(); If there is a winner
+							// print the game board and some flavor text.
+
+							// Prints game board
+							ui.clearScreen();
+							ui.updateScreen(tttGame);
+						}
+
+						// TODO At this point, 8/9 spots on the board have been filled, so the last one
+						// needs to be filled in with the player's symbol (X) and the potential winner
+						// needs to be determined
+
+						// TODO Afterwards pet stats need to be incremented
+
+					}
+				} else if (userResponse == 2) {
+					/*
+					 * Trivia game handling
+					 */
+
+				}
 			} else if (userResponse == 4) {
+				/*
+				 * Statistics option
+				 */
 				ui.updateScreen(pet);
 				if (pet.getHealth() >= 10) {
 					getChoice(input, 1);
 				} else {
 					userResponse = getChoice(input, 2);
 					if (userResponse == 1) {
-						// TODO Don't use this method, set values manually 
+						// TODO Don't use this method, set values manually
 						pet = defaultPet;
 					} else {
 						System.exit(0);
 					}
 				}
 			} else if (userResponse == 5) {
+				/*
+				 * Exit option
+				 */
 				System.exit(0);
 			}
 		}

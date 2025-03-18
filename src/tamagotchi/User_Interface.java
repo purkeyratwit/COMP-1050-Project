@@ -11,6 +11,7 @@ public class User_Interface {
 	public static String formattedString = "";
 	public static String petName;
 	public static final String OPTION_ERR_MSG = "Please enter a number in the valid range";
+	public static final String FORMAT_ERR_MSG = "Non-integer value(s) provided!";
 
 	/**
 	 * Constructor, takes the current pet as input and creates a base for future
@@ -54,12 +55,43 @@ public class User_Interface {
 	}
 
 	/**
-	 * Updates the current console output to represent the current boredom class
+	 * Updates the current console output to represent the current Trivia_Game class
 	 * 
 	 * @param boredomInput The current state of the boredom class
 	 */
-	public void updateScreen(Boredom boredomInput, int questionNumber) {
+	public void updateScreen(Trivia_Game TriviaInput) {
 		// TODO
+	}
+	
+	/**
+	 * Updates the current console output to represent the current Tic_Tac_Toe class
+	 * 
+	 * @param boredomInput The current state of the boredom class
+	 */
+	public void updateScreen(Tic_Tac_Toe_Game tttInput) {
+		if(tttInput.gameStatus == 1) {
+			System.out.printf("Enter a X coordnate from the valid list: ");
+			tttInput.gameStatus++;
+		} else if(tttInput.gameStatus == 2) {
+			System.out.printf("Enter a Y coordnate from the valid list: ");
+			tttInput.gameStatus++;
+		} else if(tttInput.gameStatus == 3) {
+			System.out.printf("  1 2 3%n");
+			System.out.printf(" ┌─┬─┬─┐%n");
+			for (int i = 0; i < 3; i++) {
+				System.out.printf("%d│", i+1);
+				for (int j = 0; j < 3; j++) {
+					System.out.printf("%s│", tttInput.gameBoard[i][j]);
+				}
+				if(i != 2) {
+					System.out.printf("%n ├─┼─┼─┤%n");
+				} else {
+					System.out.printf("%n └─┴─┴─┘%n");
+				}
+			}
+
+			tttInput.gameStatus = 1;
+		}
 	}
 
 	/**
