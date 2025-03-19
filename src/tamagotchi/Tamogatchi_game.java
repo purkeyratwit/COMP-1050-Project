@@ -96,146 +96,156 @@ public class Tamogatchi_game {
 			}
 	}
 
-	// TODO Needs to return the appropriate boredom increase value, also needs to be
-	// cleaned up a little, specifically I think the code would be more manageable
-	// if User_Interface doesn't change tttGame.gameStatus. Other changes needed,
-	// however the game is mostly completed I believe
+	/**
+	 * Method to perform a Tic Tac Toe game
+	 * @param ui The User_Interface variable instantiated with the pets name
+	 * @param input Scanner object
+	 * @return The boredom decrease value
+	 */
 	public static int TTTGame(User_Interface ui, Scanner input) {
 		int userResponse = 1;
-		while (true) {
-			ui.clearScreen();
-			Tic_Tac_Toe_Game tttGame = new Tic_Tac_Toe_Game();
+		Tic_Tac_Toe_Game tttGame = new Tic_Tac_Toe_Game();
+		int boredomIncrease = 0;
 
-			System.out.printf(
-					"Pick a starting position on the board!%n(1,1) Represents the top left corner and (3,3) represents the bottom right corner");
+		while (true) {
+			// Starts a new game
+			ui.clearScreen();
+			tttGame.resetGame();
+
+			// Prints new game flavor text
+			System.out.printf("Pick a starting position on the board!%n");
+			System.out.printf("(1,1) Represents the top left corner and (3,3) represents the bottom right corner");
 			User_Interface.printOptions(new String[] { "X options: 1, 2, 3", "Y options: 1, 2, 3" });
 
-			tttGame.gameStatus = 1;
+			// Handles the first 8 moves (4 for the user, 4 for the pet). Will abort early
+			// if a winner is determined before the loop completes
+			int x, y;
 			for (int i = 0; i < 4; i++) {
 				// Gets user position choice
-				int x, y;
 				do {
+					tttGame.gameStatus = 1;
+
 					ui.updateScreen(tttGame);
 					x = getChoice(input, 3);
+					tttGame.gameStatus = 2;
+
 					ui.updateScreen(tttGame);
 					y = getChoice(input, 3);
+					tttGame.gameStatus = 3;
 
 					if (!tttGame.validOption(x, y)) {
 						System.out.printf("%nPlease enter a set of valid coordnates!%n");
-						tttGame.gameStatus = 1;
 					}
-
 				} while (!tttGame.validOption(x, y));
 
+				// Applies the user's move
 				tttGame.gameBoard[y - 1][x - 1] = "X";
 
-				// If X wins
+				// If X wins, finish the game
 				if (tttGame.checkWinner().equals("X")) {
-
 					// Prints the game board
 					ui.clearScreen();
+					tttGame.gameStatus = 3;
 					ui.updateScreen(tttGame);
 
+					// Prints the player win flavor text and ends the game
 					tttGame.gameStatus = 4;
-
 					ui.updateScreen(tttGame);
-					userResponse = getChoice(input, 2);
-
 					tttGame.gameStatus = 7;
+					
+					// Adds to return value
+					boredomIncrease += Boredom.getBoredomDecrease(1);
 
-					if (userResponse == 1) {
-						tttGame.resetGame();
-						break;
-					} else {
-						break;
-					}
+					// Aborts the for loop
+					break;
 				}
 
+				// Determines the pet's choice
 				int[] petChoice = tttGame.petChoice(tttGame.gameBoard);
+
+				// Applies the pet's choice
 				tttGame.gameBoard[petChoice[0]][petChoice[1]] = "O";
 
-				// Prints the game board
-				ui.clearScreen();
-				tttGame.gameStatus = 3;
-				ui.updateScreen(tttGame);
-
-				// If O wins
+				// If O wins, finish the game
 				if (tttGame.checkWinner().equals("O")) {
 					// Prints the game board
 					ui.clearScreen();
 					tttGame.gameStatus = 3;
 					ui.updateScreen(tttGame);
 
+					// Prints the pet win flavor text and ends the game
 					tttGame.gameStatus = 5;
-
 					ui.updateScreen(tttGame);
-					userResponse = getChoice(input, 2);
-
 					tttGame.gameStatus = 7;
+					
+					// Adds to return value
+					boredomIncrease += (Boredom.getBoredomDecrease(1)/2);
 
-					if (userResponse == 1) {
-						tttGame.resetGame();
-						break;
-					} else {
-						break;
-					}
+					// Aborts the for loop
+					break;
 				}
+
+				// Prints the game board
+				ui.clearScreen();
+				tttGame.gameStatus = 3;
+				ui.updateScreen(tttGame);
 			}
 
-			// If game ended, check if the user wishes to exit
+			// Check if the game has ended early
 			if (tttGame.gameStatus == 7) {
-				if (userResponse == 1) {
-					tttGame.resetGame();
-				} else {
+				// Checks if the user wishes to continue playing, and if they do not then
+				// returns to the main menu
+				ui.updateScreen(tttGame);
+				userResponse = getChoice(input, 2);
+				if (userResponse == 2) {
 					break;
 				}
 			} else {
-				// Final move, automatic
-				int x, y;
+				// Final move done automatically
+
+				// Gets the x & y values for the last valid spot on the board
 				char value = tttGame.getValidOptions()[0].charAt(0);
-				x = Character.valueOf(value) - 48;
+				x = Integer.valueOf(value) - 49;
 
 				value = tttGame.getValidOptions()[0].charAt(3);
-				y = Character.valueOf(value) - 48;
+				y = Integer.valueOf(value) - 49;
 
-				tttGame.gameBoard[y - 1][x - 1] = "X";
+				// Applies the final move to the game board
+				tttGame.gameBoard[x][y] = "X";
 
+				// Prints the game board
+				ui.clearScreen();
+				tttGame.gameStatus = 3;
+				ui.updateScreen(tttGame);
+
+				// Checks if the final move caused the player to win
 				if (tttGame.checkWinner().equals("X")) {
-					// Prints the game board
-					ui.clearScreen();
-					tttGame.gameStatus = 3;
-					ui.updateScreen(tttGame);
-
+					// Prints the player win flavor text and ends the game
 					tttGame.gameStatus = 4;
-
 					ui.updateScreen(tttGame);
-					userResponse = getChoice(input, 2);
+					
+					// Adds to return value
+					boredomIncrease += Boredom.getBoredomDecrease(1);
 				} else {
-					// Prints the game board
-					ui.clearScreen();
-					tttGame.gameStatus = 3;
-					ui.updateScreen(tttGame);
-
+					// Prints the no winner flavor text and ends the game
 					tttGame.gameStatus = 6;
-
 					ui.updateScreen(tttGame);
-					userResponse = getChoice(input, 2);
+					
+					// Adds to return value
+					boredomIncrease += Math.round(Boredom.getBoredomDecrease(1)/1.5);
 				}
-				if (userResponse == 1) {
-					tttGame.resetGame();
-				} else {
+				
+				// Checks if the user wishes to continue playing, and if they do not then
+				// returns to the main menu
+				tttGame.gameStatus = 7;
+				ui.updateScreen(tttGame);
+				userResponse = getChoice(input, 2);
+				if (userResponse == 2) {
 					break;
 				}
 			}
-			// TODO At this point, 8/9 spots on the board have been filled, so the last one
-			// needs to be filled in with the player's symbol (X) and the potential winner
-			// needs to be determined
-
-			// TODO Afterwards pet stats need to be incremented
-
 		}
-		// Temp
-		return 0;
+		return boredomIncrease;
 	}
 
 	/**
@@ -290,9 +300,7 @@ public class Tamogatchi_game {
 					 */
 					bored.setGame(1);
 					bored.startGame();
-					while (bored.gameOngoing) {
-						TTTGame(ui, input);
-					}
+					pet.setBoredom(pet.getBoredom() + TTTGame(ui, input));
 
 				} else if (userResponse == 2) {
 					/*

@@ -26,7 +26,7 @@ public class Boredom {
 	 * @param selectedActivity The current activity/game the user has selected
 	 * @return The amount the boredom statistic will decrease
 	 */
-	public int getBoredomDecrease(int selectedActivity) {
+	public static int getBoredomDecrease(int selectedActivity) {
 		if (selectedActivity == 1) {
 			return 20;
 		} else if (selectedActivity == 2) {

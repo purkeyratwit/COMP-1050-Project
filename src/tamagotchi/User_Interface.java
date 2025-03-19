@@ -71,10 +71,8 @@ public class User_Interface {
 	public void updateScreen(Tic_Tac_Toe_Game tttInput) {
 		if (tttInput.gameStatus == 1) {
 			System.out.printf("Enter a X coordnate from the valid list: ");
-			tttInput.gameStatus++;
 		} else if (tttInput.gameStatus == 2) {
 			System.out.printf("Enter a Y coordnate from the valid list: ");
-			tttInput.gameStatus++;
 		} else if (tttInput.gameStatus == 3) {
 			System.out.printf("  1 2 3%n");
 			System.out.printf(" ┌─┬─┬─┐%n");
@@ -89,17 +87,15 @@ public class User_Interface {
 					System.out.printf("%n └─┴─┴─┘%n");
 				}
 			}
-
-			tttInput.gameStatus = 1;
 		} else if (tttInput.gameStatus == 4) {
-			System.out.printf("%nYou won!%nWhat would you like to do now?");
-			printOptions(new String[] {"Start a new game", "Return to the main menu"});
+			System.out.printf("%nYou won!%n");
 		} else if (tttInput.gameStatus == 5) {
-			System.out.printf("%n%s won!%nWhat would you like to do now?", petName);
-			printOptions(new String[] {"Start a new game", "Return to the main menu"});
+			System.out.printf("%n%s won!%n", petName);
 		} else if (tttInput.gameStatus == 6) {
-			System.out.printf("%nNo winner!%nWhat would you like to do now?", petName);
-			printOptions(new String[] {"Start a new game", "Return to the main menu"});
+			System.out.printf("%nNo winner!%n");
+		} else if (tttInput.gameStatus == 7) {
+			System.out.printf("What would you like to do now?");
+			printOptions(new String[] { "Start a new game", "Return to the main menu" });
 		}
 	}
 
@@ -112,12 +108,12 @@ public class User_Interface {
 		clearScreen();
 		pet.updateStats();
 		if (pet.getHealth() >= 10) {
-			System.out.printf("%s's current stats:%n", pet.getName());
+			System.out.printf("%s's current stats (Lower = Better):%n", pet.getName());
 			// Prints the pets current statistics
-			System.out.printf("Hunger: %d%n", pet.getHunger());
-			System.out.printf("Boredom: %d%n", pet.getBoredom());
-			System.out.printf("Dirtiness: %d%n", pet.getDirtiness());
-			System.out.printf("Health: %.0f%n", pet.getHealth());
+			System.out.printf("Hunger: %d%n", 100-pet.getHunger());
+			System.out.printf("Boredom: %d%n", 100-pet.getBoredom());
+			System.out.printf("Dirtiness: %d%n", 100-pet.getDirtiness());
+			System.out.printf("Health: %.0f%s%n", pet.getHealth(), "%");
 
 			System.out.printf("%n");
 			System.out.printf("Enter \"1\" to return to the main menu!%n");

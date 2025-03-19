@@ -76,28 +76,52 @@ public class PetStats {
 	 * Sets the hunger value to the value the user provides
 	 */
 	public void setHunger(int hunger) {
-		this.hunger = hunger;
+		if (hunger >= 100) {
+			this.hunger = 100;
+		} else if (hunger <= 0){
+			this.hunger = 0;
+		} else {
+			this.hunger = hunger;
+		}
 	}
 
 	/**
 	 * Sets the boredom value to the value the user provides
 	 */
 	public void setBoredom(int boredom) {
-		this.boredom = boredom;
+		if (boredom >= 100) {
+			this.boredom = 100;
+		} else if (boredom <= 0){
+			this.boredom = 0;
+		} else {
+			this.boredom = boredom;
+		}
 	}
 
 	/**
 	 * Sets the dirtiness value to the value the user provides
 	 */
 	public void setDirtiness(int dirtiness) {
-		this.dirtiness = dirtiness;
+		if (dirtiness >= 100) {
+			this.dirtiness = 100;
+		} else if (dirtiness <= 0){
+			this.dirtiness = 0;
+		} else {
+			this.dirtiness = dirtiness;
+		}
 	}
 
 	/**
 	 * Sets the health value to the value the user provides
 	 */
 	public void setHealth(double health) {
-		this.health = health;
+		if (health >= 100) {
+			this.health = 100;
+		} else if (health <= 0){
+			this.health = 0;
+		} else {
+			this.health = health;
+		}
 	}
 
 }

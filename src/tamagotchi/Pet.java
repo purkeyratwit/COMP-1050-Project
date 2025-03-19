@@ -68,14 +68,22 @@ public class Pet extends PetStats {
 		hunger -= rand.nextInt(5);
 		if (hunger < 0) {
 			hunger = 0;
+		} else if (hunger > 100) {
+			hunger = 100;
 		}
+
 		boredom -= rand.nextInt(5);
 		if (boredom < 0) {
 			boredom = 0;
+		} else if (boredom > 100) {
+			boredom = 100;
 		}
+
 		dirtiness -= rand.nextInt(5);
 		if (dirtiness < 0) {
 			dirtiness = 0;
+		} else if (dirtiness > 100) {
+			dirtiness = 100;
 		}
 
 		health = (hunger + boredom + dirtiness) / 3;
