@@ -10,7 +10,7 @@ public class Dirtiness {
 	// Hard coded values for each cleaning method
 	String[] cleaningType = { "Quick Rinse", "Deep Clean" };
 	int[] cleaningDirtinessDecrease = { 5, 20 };
-	int cleaningStatus = 0;
+	int cleaningStatus = 0; // -1 =  No cleaning method ongoing; 0 = Quick Rinse ongoing; 1 = Deep Clean ongoing
 
 	/**
 	 * Default constructor
