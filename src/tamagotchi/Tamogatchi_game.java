@@ -13,12 +13,33 @@ import java.util.InputMismatchException;
 public class Tamogatchi_game {
 
 	/**
-	 * Simple method to handle creating a Pet object upon the program's startup
+	 * Simple method to handle creating a Pet object upon the program's startup.
 	 * 
 	 * @return Pet object created
 	 */
 	public static Pet createPet(Scanner input) {
-		System.out.printf("Hello! Please name your pet: ");
+		System.out.printf("Hello! Do you have a save file to load from?");
+		User_Interface.printOptions(new String[] { "Yes", "No" });
+		int intUserResponse = getChoice(input, 2);
+
+		// Clears new line character
+		input.nextLine();
+
+		if (intUserResponse == 1) {
+			System.out.printf("Enter a .txt file path: ");
+			String filePath = input.nextLine();
+			Pet tempPet = Pet.readFromFile(filePath, input);
+
+			if (!(tempPet.name.equals("N/A"))) {
+				return tempPet;
+			}
+			// Creates User_Interface object to call clearScreen();
+			User_Interface ui = new User_Interface(tempPet);
+			ui.clearScreen();
+		}
+		System.out.printf("%n");
+
+		System.out.printf("Please name your pet: ");
 		String petName = input.nextLine();
 
 		System.out.printf("%nWould you like to setup any initial starting conditions?");
@@ -98,7 +119,8 @@ public class Tamogatchi_game {
 
 	/**
 	 * Method to perform a Tic Tac Toe game
-	 * @param ui The User_Interface variable instantiated with the pets name
+	 * 
+	 * @param ui    The User_Interface variable instantiated with the pets name
 	 * @param input Scanner object
 	 * @return The boredom decrease value
 	 */
@@ -152,7 +174,7 @@ public class Tamogatchi_game {
 					tttGame.gameStatus = 4;
 					ui.updateScreen(tttGame);
 					tttGame.gameStatus = 7;
-					
+
 					// Adds to return value
 					boredomIncrease += Boredom.getBoredomDecrease(1);
 
@@ -177,9 +199,9 @@ public class Tamogatchi_game {
 					tttGame.gameStatus = 5;
 					ui.updateScreen(tttGame);
 					tttGame.gameStatus = 7;
-					
+
 					// Adds to return value
-					boredomIncrease += (Boredom.getBoredomDecrease(1)/2);
+					boredomIncrease += (Boredom.getBoredomDecrease(1) / 2);
 
 					// Aborts the for loop
 					break;
@@ -223,18 +245,18 @@ public class Tamogatchi_game {
 					// Prints the player win flavor text and ends the game
 					tttGame.gameStatus = 4;
 					ui.updateScreen(tttGame);
-					
+
 					// Adds to return value
 					boredomIncrease += Boredom.getBoredomDecrease(1);
 				} else {
 					// Prints the no winner flavor text and ends the game
 					tttGame.gameStatus = 6;
 					ui.updateScreen(tttGame);
-					
+
 					// Adds to return value
-					boredomIncrease += Math.round(Boredom.getBoredomDecrease(1)/1.5);
+					boredomIncrease += Math.round(Boredom.getBoredomDecrease(1) / 1.5);
 				}
-				
+
 				// Checks if the user wishes to continue playing, and if they do not then
 				// returns to the main menu
 				tttGame.gameStatus = 7;
@@ -257,12 +279,12 @@ public class Tamogatchi_game {
 		Scanner input = new Scanner(System.in);
 		User_Interface ui;
 		Food food = new Food();
-		Dirtiness dirty = new Dirtiness();
 		Boredom bored = new Boredom();
+		Dirtiness dirty = new Dirtiness();
 		int userResponse, userFoodIndex;
 
 		Pet pet = createPet(input);
-		Pet defaultPet = pet;
+		Pet initialPet = new Pet(pet.getName(), pet.getHunger(), pet.getBoredom(), pet.getDirtiness());
 
 		ui = new User_Interface(pet);
 
@@ -270,6 +292,12 @@ public class Tamogatchi_game {
 			ui.updateScreen();
 			userResponse = getChoice(input, 5);
 			ui.clearScreen();
+
+			/*
+			 * Note: the second option is for dirtiness and the third is for boredom. This
+			 * is different from how it is ordered elsewhere in the program (with the second
+			 * being boredom and third being dirtiness).
+			 */
 			if (userResponse == 1) {
 				/*
 				 * Food option
@@ -301,7 +329,6 @@ public class Tamogatchi_game {
 					bored.setGame(1);
 					bored.startGame();
 					pet.setBoredom(pet.getBoredom() + TTTGame(ui, input));
-
 				} else if (userResponse == 2) {
 					/*
 					 * Trivia game handling
@@ -318,8 +345,8 @@ public class Tamogatchi_game {
 				} else {
 					userResponse = getChoice(input, 2);
 					if (userResponse == 1) {
-						// TODO Don't use this method, set values manually
-						pet = defaultPet;
+						pet = new Pet(initialPet.getName(), initialPet.getHunger(), initialPet.getBoredom(),
+								initialPet.getDirtiness());
 					} else {
 						System.exit(0);
 					}
@@ -328,9 +355,30 @@ public class Tamogatchi_game {
 				/*
 				 * Exit option
 				 */
-				System.exit(0);
+				System.out.printf("Would you like to save your pet to a file?");
+				User_Interface.printOptions(new String[] { "Yes", "No" });
+
+				userResponse = getChoice(input, 2);
+
+				if (userResponse == 1) {
+					// Consumes new line character
+					input.nextLine();
+
+					while (true) {
+						System.out.printf("Enter a file path: ");
+						String filePath = input.nextLine();
+						if (pet.SaveToFile(filePath, pet)) {
+							System.out.printf("Done!");
+							System.exit(0);
+						} else {
+							ui.clearScreen();
+							System.out.printf("Invalid file path!%n");
+						}
+					}
+				} else {
+					System.exit(0);
+				}
 			}
 		}
 	}
-
 }

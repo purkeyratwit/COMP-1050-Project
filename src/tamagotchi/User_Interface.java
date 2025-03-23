@@ -1,6 +1,5 @@
 package tamagotchi;
 
-
 /**
  * Class that prints information to the console based on the user's input and/or
  * current state of the program
@@ -66,7 +65,7 @@ public class User_Interface {
 		} else if (TriviaInput.gameStatus == 2) {
 			System.out.printf("It is the player's turn! Choose your answer...");
 		}
-		
+
 	}
 
 	/**
@@ -116,9 +115,9 @@ public class User_Interface {
 		if (pet.getHealth() >= 10) {
 			System.out.printf("%s's current stats (Lower = Better):%n", pet.getName());
 			// Prints the pets current statistics
-			System.out.printf("Hunger: %d%n", 100-pet.getHunger());
-			System.out.printf("Boredom: %d%n", 100-pet.getBoredom());
-			System.out.printf("Dirtiness: %d%n", 100-pet.getDirtiness());
+			System.out.printf("Hunger: %d%n", 100 - pet.getHunger());
+			System.out.printf("Boredom: %d%n", 100 - pet.getBoredom());
+			System.out.printf("Dirtiness: %d%n", 100 - pet.getDirtiness());
 			System.out.printf("Health: %.0f%s%n", pet.getHealth(), "%");
 
 			System.out.printf("%n");
