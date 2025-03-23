@@ -16,7 +16,16 @@ public class Trivia_Game {
 						// 3 = Player won; 4 = Pet won; 5 = No winner; 7 = Game ended
 	int questionCount = 0;
 
-	Random question = new Random();
+	Random question = new Random();	
+	
+	String[] questionArray = {"What is the capital of Massachusetts?", "What is the largest planet in the solar system?", 
+		"What is the name of the tallest mountain in the world?", "Who was the first person to walk on the moon?", 
+		"Who was the first president of the United States?", "How many letters are in the alphabet?", 
+		"What city is the Statue of Liberty located in?", "How many bases are there on a baseball field?",
+		"What is the human body's largest organ?","What year was Earth Day first celebrated?"};  // Default 10 questions
+	String[] answerArray = {"Boston","Jupiter","Mount Everest","Neil Armstrong","George Washington","26","New York City"
+		,"4","Skin","1970"}; // Answers to all 10 questions, in order
+	String[] finalAnswerArray = new String[2]; // Contains pet and user answers to a question
 	/**
 	 * Default constructor
 	 */
@@ -31,12 +40,12 @@ public class Trivia_Game {
 	 * @param fileName The name of the file that contains the questions and answers
 	 */
 	public Trivia_Game(String fileName) {
-		// TODO
-		String[] questionArray = new String[10]; // 10 questions are used from a given file
-		String[] choicesArray = new String[3]; // Each question has three answer choices
-		String[] answerArray = new String[2]; // Contains pet and user answers to a question
-	}
+		String[] questionArray = new String[10];
+		String[] answerArray = new String[10];
+		String finalAnswerArray[] = new String[2];
+	
 
+	}
 	/**
 	 * Picks a random question out of the list of questions provided
 	 * 
@@ -52,12 +61,12 @@ public class Trivia_Game {
 	/**
 	 * Check if the answer provided matches the correct answer
 	 
-	 * @param answer        The answer that the user has selected
+	 * @param answerThe answer that the user has selected
 	 * @param questionIndex The index of the question
 	 * @return true if the user was correct, false if otherwise
 	 */
 	public boolean checkAnswer(String answer, int questionIndex) {
-		if (answer == questionArray[questionIndex]) {
+		if (answer.equals(answerArray[questionIndex])) {
 			return true; 
 		}
 		return false;

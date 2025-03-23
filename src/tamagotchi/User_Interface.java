@@ -1,5 +1,6 @@
 package tamagotchi;
 
+
 /**
  * Class that prints information to the console based on the user's input and/or
  * current state of the program
@@ -60,7 +61,12 @@ public class User_Interface {
 	 * @param boredomInput The current state of the boredom class
 	 */
 	public void updateScreen(Trivia_Game TriviaInput) {
-		// TODO
+		if (TriviaInput.gameStatus == 1) {
+			System.out.printf("It is %s's turn! %s is making a choice...", petName, petName);
+		} else if (TriviaInput.gameStatus == 2) {
+			System.out.printf("It is the player's turn! Choose your answer...");
+		}
+		
 	}
 
 	/**
