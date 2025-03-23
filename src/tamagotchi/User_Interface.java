@@ -63,9 +63,18 @@ public class User_Interface {
 	 */
 	public void updateScreen(Trivia_Game TriviaInput) {
 		if (TriviaInput.gameStatus == 1) {
-			System.out.printf("It is %s's turn! %s is making a choice...", petName, petName);
+			System.out.printf("It is %s's turn! %s is typing their answer...", petName, petName);
 		} else if (TriviaInput.gameStatus == 2) {
-			System.out.printf("It is the player's turn! Choose your answer...");
+			System.out.printf("It is your turn! Type your answer...");
+		} else if (TriviaInput.gameStatus == 3) {
+			System.out.println("You won!");
+		} else if (TriviaInput.gameStatus == 4) {
+			System.out.printf("%s won!", petName);
+		} else if (TriviaInput.gameStatus == 5) {
+			System.out.println("No winner!");
+		} else if (TriviaInput.gameStatus == 6) {
+			System.out.println("What would you like to do now?");
+			printOptions(new String[]{ "Start a new game", "Return to the main menu" });
 		}
 
 	}

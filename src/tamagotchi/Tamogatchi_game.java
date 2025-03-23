@@ -269,7 +269,124 @@ public class Tamogatchi_game {
 		}
 		return boredomIncrease;
 	}
+	public static int triviaGame(User_Interface ui, Scanner input) {
+		int userResponse = 1;
+		int boredomIncrease = 0;
+		int petScore = 0;
+		int playerScore = 0; 
+		// Starts a new game with user-provided questions
+		while(true) {			
+			System.out.println("Would you like to use your own trivia questions? (Y/N)");
+		
+			String choice = input.nextLine(); 
+			if (choice == "Y") {
+				System.out.println("Enter the file name: ");
+				String fileName = input.nextLine();			
+				Trivia_Game triviaGame = new Trivia_Game(fileName);
+				ui.clearScreen();
+				triviaGame.resetGame();
+			// Prints new game flavor text
+			System.out.println("This game will have 10 questions.");
+			System.out.println("The player who answers the most questions correctly wins!"); 
 
+			for (int i = 0; i < 10; i++) {
+				// Prints question and notes position in array 
+				int questionAndAnswerIndex = triviaGame.pickQuestion(triviaGame.questionArray);
+				System.out.printf(triviaGame.questionArray[questionAndAnswerIndex]);
+				//Pet's turn
+				triviaGame.gameStatus = 1;
+				ui.updateScreen(triviaGame);
+				String answer = triviaGame.answerArray[triviaGame.pickQuestion(triviaGame.answerArray)];
+				if (triviaGame.checkAnswer(answer, petScore)) {
+					petScore++;
+				}
+				//Player's turn
+				triviaGame.gameStatus = 2;
+				answer = input.nextLine(); 
+				ui.updateScreen(triviaGame);
+				if (triviaGame.checkAnswer(answer, questionAndAnswerIndex)) {
+					playerScore++;
+				}
+			//Checks score at the end of the game. 
+			} if (playerScore > petScore) {
+				triviaGame.gameStatus = 3;
+				ui.updateScreen(triviaGame);
+				//Adds to return value
+				boredomIncrease += Boredom.getBoredomDecrease(1);
+			} if (petScore > playerScore) {
+				triviaGame.gameStatus = 4;
+				ui.updateScreen(triviaGame);
+				boredomIncrease += (Boredom.getBoredomDecrease(1) / 2);
+				
+			} else if (playerScore == petScore) {
+				triviaGame.gameStatus = 5;
+				ui.updateScreen(triviaGame);
+				boredomIncrease += Math.round(Boredom.getBoredomDecrease(1) / 1.5);
+			}	
+				//Checks if user would like to return to menu or start a new game
+				triviaGame.gameStatus = 6;
+				ui.updateScreen(triviaGame);
+				userResponse = getChoice(input, 2);
+				if(userResponse == 2) {
+					break;
+				}
+				
+		} else if(choice == "N") {
+			// Starts a new game with default questions
+			Trivia_Game triviaGame = new Trivia_Game();
+			ui.clearScreen();
+			triviaGame.resetGame();
+			//Prints new game flavor text
+			System.out.println("This game will have 10 questions.");
+			System.out.println("The player who answers the most questions correctly wins!"); 
+
+			for (int i = 0; i < 10; i++) {
+				// Prints question and notes position in array 
+					int questionAndAnswerIndex = triviaGame.pickQuestion(triviaGame.questionArray);
+					System.out.printf(triviaGame.questionArray[questionAndAnswerIndex]);
+				//Pet's turn
+					triviaGame.gameStatus = 1;
+					ui.updateScreen(triviaGame);
+					String answer = triviaGame.answerArray[triviaGame.pickQuestion(triviaGame.answerArray)];
+					if (triviaGame.checkAnswer(answer, petScore)) {
+						petScore++;
+					}
+				
+					//Player's turn
+					triviaGame.gameStatus = 2;
+					answer = input.nextLine(); 
+					ui.updateScreen(triviaGame);
+					if (triviaGame.checkAnswer(answer, questionAndAnswerIndex)) {
+						playerScore++;
+					}
+					//Checks score at the end of the game. 
+			} if (playerScore > petScore) {
+				triviaGame.gameStatus = 3;
+				ui.updateScreen(triviaGame);
+				//Adds to return value
+				boredomIncrease += Boredom.getBoredomDecrease(1);
+			} if (petScore > playerScore) {
+				triviaGame.gameStatus = 4;
+				ui.updateScreen(triviaGame);
+				boredomIncrease += (Boredom.getBoredomDecrease(1) / 2);
+				
+			} else if (playerScore == petScore) {
+				triviaGame.gameStatus = 5;
+				ui.updateScreen(triviaGame);
+				boredomIncrease += Math.round(Boredom.getBoredomDecrease(1) / 1.5);
+			}	
+				//Checks if user would like to return to menu or start a new game
+				triviaGame.gameStatus = 6;
+				ui.updateScreen(triviaGame);
+				userResponse = getChoice(input, 2);
+				if(userResponse == 2) {
+					break;
+				}
+			}
+		} return boredomIncrease;
+	}
+	
+	
 	/**
 	 * Main method
 	 * 

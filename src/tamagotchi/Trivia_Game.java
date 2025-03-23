@@ -9,11 +9,13 @@ package tamagotchi;
 
 import java.util.Random;
 import java.util.Scanner; 
+import java.io.File;
+import java.io.FileNotFoundException;
 public class Trivia_Game {
 	
 	int gamesPlayed = 0;
 	int gameStatus = 0; // -1 = No game running; 0 = New game; 1 = Waiting for pet input; 2 = Waiting for player input; 
-						// 3 = Player won; 4 = Pet won; 5 = No winner; 7 = Game ended
+						// 3 = Player won; 4 = Pet won; 5 = No winner; 6 = Game ended
 	int questionCount = 0;
 
 	Random question = new Random();	
@@ -39,12 +41,24 @@ public class Trivia_Game {
 	 * 
 	 * @param fileName The name of the file that contains the questions and answers
 	 */
-	public Trivia_Game(String fileName) {
+	public Trivia_Game (String fileName) {
+		while (true) {
 		String[] questionArray = new String[10];
 		String[] answerArray = new String[10];
-		String finalAnswerArray[] = new String[2];
-	
+		try (Scanner fin = new Scanner(new File(fileName))) {
+			while (fin.hasNextLine()) {
+				for (int i = 0; i < 10; i++) {
+					questionArray[i] = fin.nextLine();
+				}
+				for (int j = 0; j < 10; j++) {
+					answerArray[j] = fin.nextLine(); 
+				}
+			}
+		} catch (FileNotFoundException ex){
+			System.out.println("Invalid file path!");
+		}
 
+		}
 	}
 	/**
 	 * Picks a random question out of the list of questions provided
@@ -57,6 +71,7 @@ public class Trivia_Game {
 	public int pickQuestion(String[] questionArray) {
 		return question.nextInt(10);
 	}
+	
 
 	/**
 	 * Check if the answer provided matches the correct answer
