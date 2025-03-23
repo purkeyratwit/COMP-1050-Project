@@ -281,7 +281,7 @@ public class Tamogatchi_game {
 		Food food = new Food();
 		Boredom bored = new Boredom();
 		Dirtiness dirty = new Dirtiness();
-		int userResponse, userFoodIndex;
+		int userResponse, userFoodIndex, userDirtyIndex;
 
 		Pet pet = createPet(input);
 		Pet initialPet = new Pet(pet.getName(), pet.getHunger(), pet.getBoredom(), pet.getDirtiness());
@@ -312,8 +312,25 @@ public class Tamogatchi_game {
 					pet.setHunger(pet.getHunger() + food.getHungerDecrease(food.selectedFood));
 				}
 			} else if (userResponse == 2) {
-				// TODO bathing the pet
-				System.out.printf("2");
+				/*
+				 * Dirtiness option
+				 */
+				
+				// Prints cleaning methods
+				dirty.cleaningStatus = -1;
+				ui.updateScreen(dirty);
+
+				// Gets the type of clean the user would like to select
+				userDirtyIndex = getChoice(input, dirty.cleaningType.length);
+				
+				// Confirms their selection
+				ui.confirm();
+				userResponse = getChoice(input, 2);
+				
+				// If confirmed, applies the statistic change to the pet
+				if (userResponse == 1) {
+					pet.setDirtiness(pet.getDirtiness() + dirty.cleaningDirtinessDecrease[userDirtyIndex - 1]);
+				}
 			} else if (userResponse == 3) {
 				/*
 				 * Game option

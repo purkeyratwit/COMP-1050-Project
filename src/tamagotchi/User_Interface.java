@@ -29,7 +29,6 @@ public class User_Interface {
 	 * @param foodInput The current state of the food class
 	 */
 	public void updateScreen(Food foodInput) {
-		System.out.printf("%n");
 		if (foodInput.foodStatus == 1) {
 			String[] foodList = foodInput.getFoodList();
 			String[] foodFlavorText = foodInput.flavorText;
@@ -51,7 +50,10 @@ public class User_Interface {
 	 * @param dirtinessInput The current state of the dirtiness class
 	 */
 	public void updateScreen(Dirtiness dirtinessInput) {
-		// TODO
+		if (dirtinessInput.cleaningStatus == -1) {
+			System.out.printf("Select a cleaning method for %s", petName);
+			printOptions(dirtinessInput.cleaningType);
+		}
 	}
 
 	/**
