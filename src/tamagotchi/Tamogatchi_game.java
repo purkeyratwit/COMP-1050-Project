@@ -513,19 +513,19 @@ public class Tamogatchi_game {
 
 						System.out.printf("Enter a new pet name: ");
 						pet.setName(input.nextLine());
-						System.out.printf("%nEnter a value for the hunger statistic (0-100, \"101\" for no change): ");
+						System.out.printf("%nEnter a value for the hunger statistic (1-100, \"101\" for no change): ");
 						int value = getChoice(input, 101);
 						if (value != 101) {
 							pet.setHunger(100 - value);
 						}
 
-						System.out.printf("Enter a value for the boredom statistic (0-100, \"101\" for no change): ");
+						System.out.printf("Enter a value for the boredom statistic (1-100, \"101\" for no change): ");
 						value = getChoice(input, 101);
 						if (value != 101) {
 							pet.setBoredom(100 - value);
 						}
 
-						System.out.printf("Enter a value for the dirtiness statistic (0-100, \"101\" for no change): ");
+						System.out.printf("Enter a value for the dirtiness statistic (1-100, \"101\" for no change): ");
 						value = getChoice(input, 101);
 						if (value != 101) {
 							pet.setDirtiness(100 - value);
