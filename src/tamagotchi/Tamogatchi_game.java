@@ -269,287 +269,305 @@ public class Tamogatchi_game {
 		}
 		return boredomIncrease;
 	}
+
+	/**
+	 * Method to perform a Trivia game
+	 * 
+	 * @param ui    The User_Interface variable instantiated with the pets name
+	 * @param input Scanner object
+	 * @return The boredom decrease value
+	 */
 	public static int triviaGame(User_Interface ui, Scanner input) {
 		int userResponse = 1;
 		int boredomIncrease = 0;
 		int petScore = 0;
-		int playerScore = 0; 
+		int playerScore = 0;
 		// Starts a new game with user-provided questions
 		while (userResponse == 1) {
-			System.out.print("Would you like to use your own trivia questions? (Y/N)");
-			String choice = input.next();
+			ui.clearScreen();
+			System.out.print("Would you like to use your own trivia questions? (Y/N) ");
+			String choice = input.nextLine();
 			if (choice.equals("Y")) {
-				
 				System.out.print("Enter the file name: ");
-				String fileName = input.nextLine();	
-				
+				String fileName = input.nextLine();
+
 				Trivia_Game triviaGame = new Trivia_Game(fileName);
-				
-			// Prints new game flavor text
-			System.out.println("This game will have 10 questions.");
-			System.out.println("The player who answers the most questions correctly wins!"); 
-			for (int i = 0; i < 10; i++) {
-				// Prints question and notes position in array 
-				int questionAndAnswerIndex = triviaGame.pickQuestion(triviaGame.questionArray);
-				String question = (triviaGame.questionArray[questionAndAnswerIndex]);
-				System.out.println(question);
-				//Pet's turn
-				triviaGame.gameStatus = 1;
-				ui.updateScreen(triviaGame);
-				String petAnswer = triviaGame.answerArray[triviaGame.pickQuestion(triviaGame.answerArray)];
-				if (triviaGame.checkAnswer(petAnswer, petScore)) {
-					petScore++;
-				}
-				//Player's turn
-				triviaGame.gameStatus = 2;
-				ui.updateScreen(triviaGame);
-				String userAnswer = input.nextLine(); 
-				if (triviaGame.checkAnswer(userAnswer, questionAndAnswerIndex)) {
-					playerScore++;
-				}
-			//Checks score at the end of the game. 
-			} if (playerScore > petScore) {
-				triviaGame.gameStatus = 3;
-				ui.updateScreen(triviaGame);
-				//Adds to return value
-				boredomIncrease += Boredom.getBoredomDecrease(1);
-			} if (petScore > playerScore) {
-				triviaGame.gameStatus = 4;
-				ui.updateScreen(triviaGame);
-				boredomIncrease += (Boredom.getBoredomDecrease(1) / 2);
-				
-			} else if (playerScore == petScore) {
-				triviaGame.gameStatus = 5;
-				ui.updateScreen(triviaGame);
-				boredomIncrease += Math.round(Boredom.getBoredomDecrease(1) / 1.5);
-			}	
-				//Checks if user would like to return to menu or start a new game
-				triviaGame.gameStatus = 6;
-				ui.clearScreen();
-				ui.updateScreen(triviaGame);
-				userResponse = getChoice(input, 2);
-				if(userResponse == 1) {
-					triviaGame.resetGame();
-				} else {
-					triviaGame.exitGame();
-					
-				}
-				
-		} else if(choice.equals("N")) {
-			// Starts a new game with default questions
-			Trivia_Game triviaGame = new Trivia_Game();
-			//Prints new game flavor text
-			System.out.println("This game will have 10 questions.");
-			System.out.println("The player who answers the most questions correctly wins!"); 
-			for (int i = 0; i < 10; i++) {
-				// Prints question and notes position in array 
+
+				// Prints new game flavor text
+				System.out.printf("This game will have 10 questions. ");
+				System.out.printf("The player who answers the most questions correctly wins!%n");
+				for (int i = 0; i < 10; i++) {
+					// Prints question and notes position in array
 					int questionAndAnswerIndex = triviaGame.pickQuestion(triviaGame.questionArray);
-					 String question = (triviaGame.questionArray[questionAndAnswerIndex]);
-					 System.out.println(question);
-				//Pet's turn
+					String question = (triviaGame.questionArray[questionAndAnswerIndex]);
+					System.out.printf("%n%s%n", question);
+					// Pet's turn
 					triviaGame.gameStatus = 1;
 					ui.updateScreen(triviaGame);
-					String answer = triviaGame.answerArray[triviaGame.pickQuestion(triviaGame.answerArray)];
-					if (triviaGame.checkAnswer(answer, petScore)) {
+					input.nextLine();
+					String petAnswer = triviaGame.answerArray[triviaGame.pickQuestion(triviaGame.answerArray)];
+					if (triviaGame.checkAnswer(petAnswer, petScore)) {
 						petScore++;
 					}
-					input.next();
-					//Player's turn
+					// Player's turn
 					triviaGame.gameStatus = 2;
-					answer = input.nextLine(); 
 					ui.updateScreen(triviaGame);
-					if (triviaGame.checkAnswer(answer, questionAndAnswerIndex)) {
+					String userAnswer = input.nextLine();
+					if (triviaGame.checkAnswer(userAnswer, questionAndAnswerIndex)) {
 						playerScore++;
 					}
-					input.next();
-					//Checks score at the end of the game. 
-			} if (playerScore > petScore) {
+					System.out.printf("%n");
+					// Checks score at the end of the game.
+				}
 				ui.clearScreen();
-				triviaGame.gameStatus = 3;
-				ui.updateScreen(triviaGame);
-				//Adds to return value
-				boredomIncrease += Boredom.getBoredomDecrease(1);
-			} if (petScore > playerScore) {
-				triviaGame.gameStatus = 4;
-				ui.updateScreen(triviaGame);
-				boredomIncrease += (Boredom.getBoredomDecrease(1) / 2);
-				
-			} else if (playerScore == petScore) {
-				triviaGame.gameStatus = 5;
-				ui.updateScreen(triviaGame);
-				boredomIncrease += Math.round(Boredom.getBoredomDecrease(1) / 1.5);
-			}	
-				//Checks if user would like to return to menu or start a new game
+				System.out.printf("%n");
+				if (playerScore > petScore) {
+					triviaGame.gameStatus = 3;
+					ui.updateScreen(triviaGame);
+					// Adds to return value
+					boredomIncrease += Boredom.getBoredomDecrease(2);
+				}
+				if (petScore > playerScore) {
+					triviaGame.gameStatus = 4;
+					ui.updateScreen(triviaGame);
+					boredomIncrease += (Boredom.getBoredomDecrease(2) / 2);
+
+				} else if (playerScore == petScore) {
+					triviaGame.gameStatus = 5;
+					ui.updateScreen(triviaGame);
+					boredomIncrease += Math.round(Boredom.getBoredomDecrease(2) / 1.5);
+				}
+				// Checks if user would like to return to menu or start a new game
 				triviaGame.gameStatus = 6;
-				ui.clearScreen();
 				ui.updateScreen(triviaGame);
 				userResponse = getChoice(input, 2);
-				
-				if(userResponse == 1) {
+				if (userResponse == 1) {
 					triviaGame.resetGame();
-				
+				} else {
+					triviaGame.exitGame();
+
+				}
+
+			} else if (choice.equals("N")) {
+				// Starts a new game with default questions
+				Trivia_Game triviaGame = new Trivia_Game();
+				// Prints new game flavor text
+				System.out.printf("This game will have 10 questions. ");
+				System.out.printf("The player who answers the most questions correctly wins!%n");
+				for (int i = 0; i < 10; i++) {
+					// Prints question and notes position in array
+					int questionAndAnswerIndex = triviaGame.pickQuestion(triviaGame.questionArray);
+					String question = (triviaGame.questionArray[questionAndAnswerIndex]);
+					System.out.printf("%n%s%n", question);
+					// Pet's turn
+					triviaGame.gameStatus = 1;
+					ui.updateScreen(triviaGame);
+					String petAnswer = triviaGame.answerArray[triviaGame.pickQuestion(triviaGame.answerArray)];
+					if (triviaGame.checkAnswer(petAnswer, petScore)) {
+						petScore++;
+					}
+					input.nextLine();
+					// Player's turn
+					triviaGame.gameStatus = 2;
+					ui.updateScreen(triviaGame);
+					String userAnswer = input.nextLine();
+					if (triviaGame.checkAnswer(userAnswer, questionAndAnswerIndex)) {
+						playerScore++;
+					}
+					System.out.printf("%n");
+					// Checks score at the end of the game.
+				}
+				ui.clearScreen();
+				System.out.printf("%n");
+				if (playerScore > petScore) {
+					ui.clearScreen();
+					triviaGame.gameStatus = 3;
+					ui.updateScreen(triviaGame);
+					// Adds to return value
+					boredomIncrease += Boredom.getBoredomDecrease(2);
+				}
+				if (petScore > playerScore) {
+					triviaGame.gameStatus = 4;
+					ui.updateScreen(triviaGame);
+					boredomIncrease += (Boredom.getBoredomDecrease(2) / 2);
+
+				} else if (playerScore == petScore) {
+					triviaGame.gameStatus = 5;
+					ui.updateScreen(triviaGame);
+					boredomIncrease += Math.round(Boredom.getBoredomDecrease(2) / 1.5);
+				}
+				// Checks if user would like to return to menu or start a new game
+				triviaGame.gameStatus = 6;
+				ui.updateScreen(triviaGame);
+				userResponse = getChoice(input, 2);
+
+				if (userResponse == 1) {
+					triviaGame.resetGame();
+
 				} else {
 					triviaGame.exitGame();
 				}
-	
+
 			}
-			}
-		 return boredomIncrease;
-		} 
-	
-	
-	
+		}
+		return boredomIncrease;
+	}
+
 	/**
 	 * Main method
 	 * 
 	 * @param args Command line arguments, ignore
 	 */
 	public static void main(String[] args) {
-	Scanner input = new Scanner(System.in);
-	User_Interface ui;
-	Food food = new Food();
-	Boredom bored = new Boredom();
-	Dirtiness dirty = new Dirtiness();
-	int userResponse, userFoodIndex, userDirtyIndex;
+		Scanner input = new Scanner(System.in);
+		User_Interface ui;
+		Food food = new Food();
+		Boredom bored = new Boredom();
+		Dirtiness dirty = new Dirtiness();
+		int userResponse, userFoodIndex, userDirtyIndex;
 
-	Pet pet = createPet(input);
-	
-	Pet initialPet = new Pet(pet.getName(), pet.getHunger(), pet.getBoredom(), pet.getDirtiness());
+		Pet pet = createPet(input);
 
-	ui = new User_Interface(pet);
+		Pet initialPet = new Pet(pet.getName(), pet.getHunger(), pet.getBoredom(), pet.getDirtiness());
 
-	while (true) {
-		ui.updateScreen();
-		userResponse = getChoice(input, 5);
-		ui.clearScreen();
+		ui = new User_Interface(pet);
 
-		/*
-		 * Note: the second option is for dirtiness and the third is for boredom. This
-		 * is different from how it is ordered elsewhere in the program (with the second
-		 * being boredom and third being dirtiness).
-		 */
-		if (userResponse == 1) {
+		while (true) {
+			ui.updateScreen();
+			userResponse = getChoice(input, 5);
+			ui.clearScreen();
+
 			/*
-			 * Food option
+			 * Note: the second option is for dirtiness and the third is for boredom. This
+			 * is different from how it is ordered elsewhere in the program (with the second
+			 * being boredom and third being dirtiness).
 			 */
-			food.foodStatus = 1;
-			ui.updateScreen(food);
-			userFoodIndex = getChoice(input, food.foodCount);
-			ui.confirm();
-			userResponse = getChoice(input, 2);
-			if (userResponse == 1) {
-				food.selectFood(userFoodIndex - 1);
-				pet.setHunger(pet.getHunger() + food.getHungerDecrease(food.selectedFood));
-			}
-		} else if (userResponse == 2) {
-			/*
-			 * Dirtiness option
-			 */
-			
-			// Prints cleaning methods
-			dirty.cleaningStatus = -1;
-			ui.updateScreen(dirty);
-
-			// Gets the type of clean the user would like to select
-			userDirtyIndex = getChoice(input, dirty.cleaningType.length);
-			
-			// Confirms their selection
-			ui.confirm();
-			userResponse = getChoice(input, 2);
-			
-			// If confirmed, applies the statistic change to the pet
-			if (userResponse == 1) {
-				pet.setDirtiness(pet.getDirtiness() + dirty.cleaningDirtinessDecrease[userDirtyIndex - 1]);
-			}
-		} else if (userResponse == 3) {
-			/*
-			 * Game option
-			 */
-			System.out.printf("What would you like to do? ");
-			User_Interface.printOptions(bored.gameMenuOptions);
-			userResponse = getChoice(input, 3);
-
 			if (userResponse == 1) {
 				/*
-				 * Tic Tac Toe Game Option
+				 * Food option
 				 */
-				bored.setGame(1);
-				bored.startGame();
-				pet.setBoredom(pet.getBoredom() + TTTGame(ui, input));
-			} else if (userResponse == 2) {
-				/*
-				 * Trivia game handling
-				 */
-				bored.setGame(2);
-				bored.startGame();
-				pet.setBoredom(pet.getBoredom() + triviaGame(ui, input));
-			}
-		} else if (userResponse == 4) {
-			/*
-			 * Statistics option
-			 */
-			ui.updateScreen(pet);
-			if (pet.getHealth() >= 10) {
-				getChoice(input, 1);
-			} else {
+				food.foodStatus = 1;
+				ui.updateScreen(food);
+				userFoodIndex = getChoice(input, food.foodCount);
+				ui.confirm();
 				userResponse = getChoice(input, 2);
 				if (userResponse == 1) {
-					pet = new Pet(initialPet.getName(), initialPet.getHunger(), initialPet.getBoredom(),
-							initialPet.getDirtiness());
+					food.selectFood(userFoodIndex - 1);
+					pet.setHunger(pet.getHunger() + food.getHungerDecrease(food.selectedFood));
+				}
+			} else if (userResponse == 2) {
+				/*
+				 * Dirtiness option
+				 */
+
+				// Prints cleaning methods
+				dirty.cleaningStatus = -1;
+				ui.updateScreen(dirty);
+
+				// Gets the type of clean the user would like to select
+				userDirtyIndex = getChoice(input, dirty.cleaningType.length);
+
+				// Confirms their selection
+				ui.confirm();
+				userResponse = getChoice(input, 2);
+
+				// If confirmed, applies the statistic change to the pet
+				if (userResponse == 1) {
+					pet.setDirtiness(pet.getDirtiness() + dirty.cleaningDirtinessDecrease[userDirtyIndex - 1]);
+				}
+			} else if (userResponse == 3) {
+				/*
+				 * Game option
+				 */
+				System.out.printf("What would you like to do? ");
+				User_Interface.printOptions(bored.gameMenuOptions);
+				userResponse = getChoice(input, 3);
+
+				if (userResponse == 1) {
+					/*
+					 * Tic Tac Toe Game Option
+					 */
+					bored.setGame(1);
+					bored.startGame();
+					pet.setBoredom(pet.getBoredom() + TTTGame(ui, input));
+				} else if (userResponse == 2) {
+					/*
+					 * Trivia game handling
+					 */
+					bored.setGame(2);
+					bored.startGame();
+					pet.setBoredom(pet.getBoredom() + triviaGame(ui, input));
+				}
+			} else if (userResponse == 4) {
+				/*
+				 * Manage option
+				 */
+				ui.updateScreen(pet);
+				if (pet.getHealth() >= 10) {
+
+					userResponse = getChoice(input, 2);
+
+					if (userResponse == 2) {
+						// Consumes new line character
+						input.nextLine();
+
+						System.out.printf("Enter a new pet name: ");
+						pet.setName(input.nextLine());
+						System.out.printf("%nEnter a value for the hunger statistic (0-100, \"101\" for no change): ");
+						int value = getChoice(input, 101);
+						if (value != 101) {
+							pet.setHunger(100 - value);
+						}
+
+						System.out.printf("Enter a value for the boredom statistic (0-100, \"101\" for no change): ");
+						value = getChoice(input, 101);
+						if (value != 101) {
+							pet.setBoredom(100 - value);
+						}
+
+						System.out.printf("Enter a value for the dirtiness statistic (0-100, \"101\" for no change): ");
+						value = getChoice(input, 101);
+						if (value != 101) {
+							pet.setDirtiness(100 - value);
+						}
+					}
+				} else {
+					userResponse = getChoice(input, 2);
+					if (userResponse == 1) {
+						pet = new Pet(initialPet.getName(), initialPet.getHunger(), initialPet.getBoredom(),
+								initialPet.getDirtiness());
+					} else {
+						System.exit(0);
+					}
+				}
+			} else if (userResponse == 5) {
+				/*
+				 * Exit option
+				 */
+				System.out.printf("Would you like to save your pet to a file?");
+				User_Interface.printOptions(new String[] { "Yes", "No" });
+
+				userResponse = getChoice(input, 2);
+
+				if (userResponse == 1) {
+					// Consumes new line character
+					input.nextLine();
+
+					while (true) {
+						System.out.printf("Enter a file path: ");
+						String filePath = input.nextLine();
+						if (pet.SaveToFile(filePath, pet)) {
+							System.out.printf("Done!");
+							System.exit(0);
+						} else {
+							ui.clearScreen();
+							System.out.printf("Invalid file path!%n");
+						}
+					}
 				} else {
 					System.exit(0);
 				}
 			}
-		} else if (userResponse == 5) {
-			/*
-			 * Exit option
-			 */
-			System.out.printf("Would you like to save your pet to a file?");
-			User_Interface.printOptions(new String[] { "Yes", "No" });
-
-			userResponse = getChoice(input, 2);
-
-			if (userResponse == 1) {
-				// Consumes new line character
-				input.nextLine();
-
-				while (true) {
-					System.out.printf("Enter a file path: ");
-					String filePath = input.nextLine();
-					if (pet.SaveToFile(filePath, pet)) {
-						System.out.printf("Done!");
-						System.exit(0);
-					} else {
-						ui.clearScreen();
-						System.out.printf("Invalid file path!%n");
-					}
-				}
-			} else {
-				System.exit(0);
-			}
 		}
 	}
-	}
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

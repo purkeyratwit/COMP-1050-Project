@@ -63,7 +63,8 @@ public class User_Interface {
 	 */
 	public void updateScreen(Trivia_Game TriviaInput) {
 		if (TriviaInput.gameStatus == 1) {
-			System.out.printf("It is %s's turn! %s is typing their answer... (type anything and press enter to proceed)%n", petName, petName);
+			System.out.printf("It is %s's turn! %s is typing their answer... (press enter to proceed)%n", petName,
+					petName);
 		} else if (TriviaInput.gameStatus == 2) {
 			System.out.printf("%s has answered.%n", petName);
 			System.out.printf("It is your turn! Type your answer...%n");
@@ -75,7 +76,7 @@ public class User_Interface {
 			System.out.printf("No winner!%n");
 		} else if (TriviaInput.gameStatus == 6) {
 			System.out.printf("What would you like to do now?%n");
-			printOptions(new String[]{ "Start a new game", "Return to the main menu" });
+			printOptions(new String[] { "Start a new game", "Return to the main menu" });
 		}
 
 	}
@@ -133,7 +134,8 @@ public class User_Interface {
 			System.out.printf("Health: %.0f%s%n", pet.getHealth(), "%");
 
 			System.out.printf("%n");
-			System.out.printf("Enter \"1\" to return to the main menu!%n");
+			System.out.printf(
+					"Enter \"1\" to return to the main menu or \"2\" to manually override your pet's statistics%n");
 		} else {
 			formattedString = "Your pet has passed away! Would you like to try again? Your pet will be reset to how it was on creation.";
 			System.out.printf("%s", formattedString);
@@ -149,8 +151,8 @@ public class User_Interface {
 		clearScreen();
 		System.out.printf("Main menu for %s: %nPlease select an option!", petName);
 
-		printOptions(new String[] { "Feed your pet", "Bathe your pet", "Play with your pet",
-				"Check how your pet is doing", "Exit the game" });
+		printOptions(new String[] { "Feed your pet", "Bathe your pet", "Play with your pet", "Manage your pet",
+				"Exit the game" });
 	}
 
 	/**
@@ -160,6 +162,7 @@ public class User_Interface {
 		for (int i = 0; i < 30; i++) {
 			System.out.printf("%n");
 		}
+		System.out.printf("Pet: %s%n", petName);
 	}
 
 	/**
