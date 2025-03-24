@@ -25,7 +25,7 @@ public class Trivia_Game {
 		"Who was the first president of the United States?", "How many letters are in the alphabet?", 
 		"What city is the Statue of Liberty located in?", "How many bases are there on a baseball field?",
 		"What is the human body's largest organ?","What year was Earth Day first celebrated?"};  // Default 10 questions
-	String[] answerArray = {"Boston","Jupiter","Mount Everest","Neil Armstrong","George Washington","26","New York City"
+	String[] answerArray = {"Boston","Jupiter","Mount Everest","Neil Armstrong","George Washington","26","New York"
 		,"4","Skin","1970"}; // Answers to all 10 questions, in order
 	String[] finalAnswerArray = new String[2]; // Contains pet and user answers to a question
 	/**
@@ -42,7 +42,6 @@ public class Trivia_Game {
 	 * @param fileName The name of the file that contains the questions and answers
 	 */
 	public Trivia_Game (String fileName) {
-		while (true) {
 		String[] questionArray = new String[10];
 		String[] answerArray = new String[10];
 		try (Scanner fin = new Scanner(new File(fileName))) {
@@ -55,9 +54,7 @@ public class Trivia_Game {
 				}
 			}
 		} catch (FileNotFoundException ex){
-			System.out.println("Invalid file path!");
-		}
-
+			System.out.println("No file chosen! Game will proceed with default settings");
 		}
 	}
 	/**
