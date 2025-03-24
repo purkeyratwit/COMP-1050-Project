@@ -38,7 +38,8 @@ public class Dirtiness {
 		
 		if (selectedClean == "Quick Rinse"){
 			return cleaningDirtinessDecrease[0];
-		} if (selectedClean == "Deep Clean") {
+		}
+		if (selectedClean == "Deep Clean") {
 			return cleaningDirtinessDecrease[1];
 		}
 		return 0;

@@ -78,7 +78,7 @@ public class PetStats {
 	public void setHunger(int hunger) {
 		if (hunger >= 100) {
 			this.hunger = 100;
-		} else if (hunger <= 0){
+		} else if (hunger <= 0) {
 			this.hunger = 0;
 		} else {
 			this.hunger = hunger;
@@ -91,7 +91,7 @@ public class PetStats {
 	public void setBoredom(int boredom) {
 		if (boredom >= 100) {
 			this.boredom = 100;
-		} else if (boredom <= 0){
+		} else if (boredom <= 0) {
 			this.boredom = 0;
 		} else {
 			this.boredom = boredom;
@@ -104,7 +104,7 @@ public class PetStats {
 	public void setDirtiness(int dirtiness) {
 		if (dirtiness >= 100) {
 			this.dirtiness = 100;
-		} else if (dirtiness <= 0){
+		} else if (dirtiness <= 0) {
 			this.dirtiness = 0;
 		} else {
 			this.dirtiness = dirtiness;
@@ -117,7 +117,7 @@ public class PetStats {
 	public void setHealth(double health) {
 		if (health >= 100) {
 			this.health = 100;
-		} else if (health <= 0){
+		} else if (health <= 0) {
 			this.health = 0;
 		} else {
 			this.health = health;

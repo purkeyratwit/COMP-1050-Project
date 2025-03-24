@@ -82,7 +82,7 @@ public class Tic_Tac_Toe_Game {
 		} else if (gameBoard[0][2].equals(gameBoard[1][1]) && gameBoard[0][2].equals(gameBoard[2][0])) { 		// Counter Diagonal
 			// Counter Diagonal
 			return gameBoard[1][1];
-		}	
+		}
 		return "-";
 	}
 
